@@ -1,0 +1,265 @@
+{
+  "_comment": "Units: suffix _m metres, _rad radians, _deg degrees, _s seconds, _nm newton-metres. Frame: world (= base_link). See docs/FRAMES.md. Relative paths are relative to mujoco_sim/ (the repo root is ..).",
+  "model": {
+    "source_scene": "../6dof_description/mujoco/scene.xml",
+    "generated_scene": "models/generated/pinch_scene.xml",
+    "tcp_body": "housing_1",
+    "tcp_local_pos_m": [
+      -0.03,
+      0.0,
+      0.0
+    ],
+    "tcp_local_zaxis": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "tool_length_m": 0.0,
+    "exclude_body_pairs": [
+      [
+        "world",
+        "r_a_1"
+      ]
+    ],
+    "_tcp_note": "With gripper.enabled the TCP is the gripper tip centre (derived in build_scene from gripper.*); tcp_local_pos_m/tool_length_m below are the old flange-face TCP and are used only when the gripper is disabled.",
+    "_source_note": "The tracked 6dof_description package (from branch urdf@b2b4038) is used unchanged; additions are generated/added files only."
+  },
+  "desk": {
+    "enabled": true,
+    "_note": "2026-10-12: light wooden desk under the robot. World frame unchanged: the desk TOP SURFACE is at z = 0 (the plane the robot stands on, targets are marked on it); the grey floor is lowered to top_z_m - height_m. Static body: robot-desk contacts are checked normally, no exclusion added (see src/pinch_sim/scene_env.py).",
+    "top_x_m": [-0.60, 0.60],
+    "top_y_m": [-0.20, 0.50],
+    "top_z_m": 0.0,
+    "thickness_m": 0.03,
+    "height_m": 0.75,
+    "leg_size_m": 0.05,
+    "leg_inset_m": 0.03,
+    "apron_height_m": 0.07,
+    "texrepeat": [1.0, 1.0],
+    "frame_rgba": [0.74, 0.60, 0.42, 1.0],
+    "floor_rgb": [0.50, 0.50, 0.50],
+    "floor_rgb2": [0.45, 0.45, 0.45]
+  },
+  "ready": {
+    "tcp_m": [
+      0.092294,
+      0.098206,
+      0.25
+    ],
+    "tool_axis": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "_note": "Home in joint space: Revolute_1 = 0 (J2 axis = world +X), Revolute_6 = -0.139769 (keeps the gripper roll visible); 2026-10-11 lowered 5 cm in z (J2..J5 re-solved with J1, J6 locked). tcp_m = FK of q_rad, checked at build time.",
+    "q_rad": [
+      0.0,
+      0.641283,
+      1.312362,
+      -0.899717,
+      -1.570796,
+      -0.139769
+    ]
+  },
+  "cameras": {
+    "side_cam": {
+      "pos_m": [
+        0.3,
+        0.5,
+        0.3
+      ],
+      "lookat_m": [
+        -0.33141,
+        -0.02981,
+        0.0
+      ],
+      "fovy_deg": 60.0,
+      "_note": "2026-10-13: at (0.3, 0.5, 0.3); heading 220 deg (old -X view turned +50 deg, then -10 deg about world Z; positive = counter-clockwise from above), pitched 20 deg down (30 -> 20, raised 10 deg on 2026-10-13); lookat = where the optical axis meets the desk top (z = 0)."
+    },
+    "side_cam_alt": {
+      "pos_m": [
+        0.55,
+        0.25,
+        0.3
+      ],
+      "lookat_m": [
+        0.0,
+        0.24,
+        0.06
+      ],
+      "fovy_deg": 60.0
+    },
+    "width_px": 768,
+    "_size_note": "2026-10-12: 16:10 render (768x480). fovy stays 60 deg (vertical), so the view only widens sideways; the camera pose and the 3-D -> 2-D projection model are unchanged.",
+    "height_px": 480
+  },
+  "target": {
+    "r_min_m": 0.25,
+    "r_max_m": 0.3,
+    "theta_max_deg": 30.0,
+    "r_dist": "area_uniform",
+    "work_height_m": 0.05,
+    "approach_height_m": 0.12,
+    "max_draws": 20,
+    "new_theta_bands_deg": [
+      [
+        25.0,
+        35.0
+      ],
+      [
+        -35.0,
+        -25.0
+      ]
+    ],
+    "_new_theta_note": "N (New) presses cycle through these theta bands (deg, from +Y towards +X): 1st, 3rd, ... use the first band, 2nd, 4th, ... the second. The automatic target at program start is not counted and uses +-theta_max_deg. Redraws stay inside the band of that press; the radius range is unchanged."
+  },
+  "path": {
+    "ds_max_m": 0.005,
+    "tcp_z_min_m": 0.03,
+    "radial_max_m": 0.45,
+    "rot_equiv_length_m_per_rad": 0.1
+  },
+  "ik": {
+    "damping": 0.001,
+    "step_clip_rad": 0.1,
+    "max_iter": 200,
+    "pos_tol_m": 1e-07,
+    "axis_tol_deg": 1e-05,
+    "nullspace_gain": 0.05,
+    "axis_weight": 0.3,
+    "damping_off_below": 0.001,
+    "damping_near": 1e-10
+  },
+  "timing": {
+    "v_max_m_s": 0.1,
+    "segment_min_s": 1.0,
+    "dt_plan_s": 0.01,
+    "dt_check_s": 0.005,
+    "max_retime_iter": 3,
+    "max_duration_s": 120.0
+  },
+  "limits": {
+    "joint_margin_rad": 0.05,
+    "joint_speed_max_deg_s": 22.5,
+    "joint_speed_plan_ratio": 0.99,
+    "_joint_speed_plan_note": "planning aims the fastest joint at 0.99 x cap (22.275 deg/s): planned exactly at the cap, the computed-torque tracking peaked at 22.51 deg/s (+0.04 %) in the dry rollout. Validation checks planned and observed speeds against the cap itself.",
+    "_joint_speed_note": "2026-10-12: cap of the FASTEST driven joint (22.5 deg/s = pi/8 rad/s). The whole joint trajectory is time-stretched by one common factor so the fastest joint peaks at this value: every joint keeps its share of the motion and all arrive together; motions already below the cap are not slowed. Converted to rad/s only in model.joint_speed_max_rad_s(); planning (trajectory), validation (joint_vel_acc, sim_rollout observed |qvel|) and this note use that one value.",
+    "qdd_max_rad_s2": 3.0,
+    "torque_check_nm": 7.0,
+    "sigma_min_m_per_rad": 0.02
+  },
+  "validation": {
+    "start_pos_tol_m": 0.002,
+    "start_axis_tol_deg": 2.0,
+    "goal_pos_tol_m": 0.001,
+    "goal_axis_tol_deg": 1.0,
+    "ik_pos_tol_m": 0.0001,
+    "ik_axis_tol_deg": 0.1,
+    "ik_jump_rad": 0.05,
+    "traj_tcp_dev_m": 0.0005,
+    "floor_clearance_m": 0.01,
+    "self_clearance_m": 0.0,
+    "approval_q_drift_rad": 0.005
+  },
+  "control": {
+    "omega_hz": 5.0,
+    "zeta": 1.0,
+    "friction_comp": true,
+    "friction_v_eps_rad_s": 0.005,
+    "torque_limit_nm": 10.0,
+    "settle_s": 0.5,
+    "abort_q_err_rad": 0.02,
+    "abort_tcp_err_m": 0.005,
+    "abort_sat_run_s": 0.05,
+    "rollout_q_err_rad": 0.005,
+    "rollout_tcp_err_m": 0.001,
+    "rollout_qd_over_ratio": 0.0,
+    "final_tcp_err_m": 0.0005,
+    "final_qd_rad_s": 0.01,
+    "hold_drift_rad": 0.001
+  },
+  "app": {
+    "render_hz": 30.0
+  },
+  "_calibration": {
+    "_note": "Plan proposals vs values used after measurement (2026-10-10, MuJoCo 3.15.0). Evidence: logs/measure_hold.json, logs/workspace_scan.json (143 grid targets, all 12 checks incl. rollout), logs/render_views.json.",
+    "target.work_height_m": "0.05 kept: 143/143 grid points pass incl. mesh collision; moving-link floor clearance measured in workspace_scan",
+    "ready": "q_ready = IK of (0, 0.20, 0.22) tool down, kept; 0 contacts, self clearance 9.0 mm, floor 41.6 mm",
+    "ik.pos_tol_m": "1e-4 -> 1e-7 (axis 0.1 -> 1e-5 deg): IK jitter of 1e-4 rad between 10 ms samples produced spline accelerations up to 2.7 rad/s2 and forced 3-4.5x time stretch; with exact null-space projection IK converges in ~5 iterations",
+    "validation.ik_pos_tol_m": "1e-3 -> 1e-4 (measured IK error ~1e-7 m)",
+    "validation.ik_axis_tol_deg": "1.0 -> 0.1",
+    "validation.traj_tcp_dev_m": "2e-3 -> 5e-4 (measured spline deviation 3e-6 m)",
+    "limits.sigma_min_m_per_rad": "0.02 kept: workspace min 0.089 m/rad, singular stretched arm (q=0) ~0",
+    "control.friction_comp": "added: wrist inertia x Kp x error << dof_frictionloss 0.01 N*m, without it a 0.02 rad wrist offset did not settle in 2 s; with it settles in 0.15 s",
+    "control.hold_drift_rad": "1e-3 kept as test bound; measured 0.0 over 10 s (model-matched computed torque + static friction)",
+    "control.rollout_q_err_rad": "0.02 -> 0.005 (measured max 3.1e-4)",
+    "control.rollout_tcp_err_m": "5e-3 -> 1e-3 (measured max 3.2e-5)",
+    "control.final_tcp_err_m": "2e-3 -> 5e-4 (measured < 1e-7)",
+    "control.abort_q_err_rad": "0.05 -> 0.02",
+    "control.abort_tcp_err_m": "0.015 -> 0.005",
+    "render.projection_px": "see logs/render_views.json",
+    "target.r_max_m": "0.30 -> 0.40 (2026-10-11 user request): 273/273 grid points (r 0.20-0.40 / 0.01, theta +-30 / 5 deg) pass all 12 checks; duration 3.2-6.3 s, tau max 2.67 N*m, sigma_min 0.089",
+    "target.r_min_m": "0.20 -> 0.35 (2026-10-11 user request): band 0.35-0.40 m -> 0.25 (2026-10-12 user request): band 0.25-0.30 m",
+    "target.r_max_m_2026-10-12": "0.40 -> 0.30 (2026-10-12 user request, with r_min 0.25); logs/workspace_scan_r025_030.json: 78/78 grid points (r 0.25-0.30 / 0.01, theta +-30 / 5 deg) pass all 12 checks, duration 6.5-9.7 s",
+    "ready.tcp_m": "[0,0.20,0.22] -> [0,0.10,0.30] -> [0.0905,0.10,0.30] with Revolute_1 locked at 0 (2026-10-11 user request: J2 axis (1,0,0) at home; x=0 is not reachable with J1=0 and tool down) -> FK of the previous home joints after the 90 deg gripper roll (2026-10-11) -> roll -90 and z lowered by 0.05 m (2026-10-11)",
+    "ik.damping_off_below": "added 2026-10-11 with the gripper: DLS damping 1e-3 is switched to 1e-10 once the task error < 1e-3; with the tip 1.8 mm off the J6 axis the ready IK (J1 locked) otherwise stalled at 0.3 mm"
+  },
+  "editor": {
+    "_note": "pac_path_editor correction parameters (algorithm from ../path 편집/src, imported unchanged); lengths in m, radius in side_cam render pixels",
+    "influence_length": 0.12,
+    "drag_limit": 0.15,
+    "total_offset_limit": 0.3,
+    "endpoint_protection": 0.05,
+    "min_effective_change": 0.001,
+    "selection_radius_px": 18.0,
+    "input_radial_max_m": 0.6,
+    "input_z_range_m": [
+      0.0,
+      0.8
+    ],
+    "_input_note": "2026-10-11: edits change only the height z of the picked point (x, y fixed); mouse heights outside input_z_range_m are ignored (validation still decides feasibility)."
+  },
+  "gripper": {
+    "_note": "Replaces the geometry/inertia of body housing_1 (child of Revolute_6, which is kept). Mesh in mm (80x80 face = housing_1 80x80 face). Mount face = 80x80 plate at mesh z_min; tip = 25x6 mm end at mesh z_max.",
+    "enabled": true,
+    "mesh": "../6dof_description/meshes/gripper.stl",
+    "scale": 0.001,
+    "mount_body": "housing_1",
+    "removed_mesh": "housing_1",
+    "mount_center_mesh_mm": [
+      -242.59,
+      114.841,
+      63.911
+    ],
+    "tip_center_mesh_mm": [
+      -240.813,
+      115.091,
+      182.861
+    ],
+    "mount_center_body_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mesh_to_body_quat": [
+      0.5000000000000001,
+      -0.5,
+      -0.5000000000000001,
+      0.5
+    ],
+    "_quat_note": "Rx(-90 deg) * Ry(-90 deg) (2026-10-11 user: roll -90 deg about the tool axis): mesh +z (mount->tip) -> body -x (J6/tool axis), mesh +x -> body +y, mesh +y -> body -z.",
+    "mass_kg": 0.22,
+    "_mass_note": "ASSUMPTION: solid PLA 1.24 g/cm3 x mesh volume 177.3 cm3 = 0.22 kg, uniform density, inertia computed by MuJoCo from the mesh. Not measured.",
+    "rgba": [
+      0.7,
+      0.7,
+      0.7,
+      1.0
+    ],
+    "_rgba_note": "same rgba as the original links (rendered white/light grey)",
+    "_mesh_note": "User-provided STL '그리퍼URDF용.stl' (Inventor export, mm) renamed to ASCII gripper.stl; sha256 de8b75f01a2fcd93a44d39e79e85e628d3686aa28bcaefdbab36aa9746dcee6f",
+    "urdf_src_dir": "../6dof_description/urdf",
+    "urdf_out_dir": "../6dof_description/urdf",
+    "urdf_mesh_uri": "package://6dof_description/meshes/gripper.stl"
+  }
+}

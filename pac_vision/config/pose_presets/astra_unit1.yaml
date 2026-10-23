@@ -1,0 +1,18 @@
+# 여러 설치 자세를 합친 RGB→depth 정합 계수 (카메라 고유 후보). tools/fit_rgb_to_depth.py, 2026-10-14 23:53
+# 명령: python tools/fit_rgb_to_depth.py --pose A=data/measurements/2026-10-02_poseA_pairs_run1.csv,data/measurements/2026-10-02_poseA_pairs_run2_transcribed.csv --pose B=data/measurements/2026-10-14_pose_pairs.csv,data/measurements/2026-10-14_pose_pairs_run2.csv --dy fixed --fragment config/pose_presets/astra_unit1.yaml
+# 자세 A: data/measurements/2026-10-02_poseA_pairs_run1.csv, data/measurements/2026-10-02_poseA_pairs_run2_transcribed.csv — 맞춤 20쌍
+# 자세 B: data/measurements/2026-10-14_pose_pairs.csv, data/measurements/2026-10-14_pose_pairs_run2.csv — 맞춤 20쌍
+# dx (거리 식) 자세별 leave-one-out RMS 쌍 / 꼭짓점 단위: A 2.56 / 2.59 px, B 2.72 / 2.79 px
+# dy (고정값) 자세별 leave-one-out RMS 쌍 / 꼭짓점 단위: A 4.05 / 4.07 px, B 2.19 / 2.22 px
+camera:
+  rgb_to_depth:
+    dx:
+      a: 8.580472
+      b: -0.012502
+      c: 0.01603
+      d: 14.56444
+    dy:
+      a: 8.475
+      b: 0.0
+      c: 0.0
+      d: 0.0

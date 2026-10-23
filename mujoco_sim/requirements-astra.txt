@@ -1,0 +1,6 @@
+# Astra 카메라(보정·깊이)용 추가 패키지. requirements.lock을 먼저 설치한 뒤 mujoco_sim 폴더에서:
+#   pip install -r requirements-astra.txt
+# pac_vision(카메라 보정 계산)은 저장소 안의 ../pac_vision을 그대로 쓴다 (numpy·PyYAML만 필요, 버전 고정 없음).
+# openni는 depth를 읽는 파이썬 바인딩이고, 드라이버(Orbbec redist 폴더)와 USB 권한은 README의 순서로 따로 넣는다.
+-e ../pac_vision
+openni==2.3.0

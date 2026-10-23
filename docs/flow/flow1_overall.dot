@@ -1,0 +1,89 @@
+digraph G {
+  include_common
+  graph [splines=ortho, nodesep=0.5, ranksep=0.45];
+  start [label="화면에 가는 길 표시\n(1단계: 가는 길)"];
+  edit1 [label="① 사용자가 가는 길 수정\n점 클릭 + 말로 고치기 또는 핀치\n(자세한 흐름은 경로 수정 흐름도)"];
+  done1 [label="② 사용자: 수정 완료\n쿠옹이: 검증할게요."];
+  v1 [label="③ 검증 결과", style="rounded,dashed", fillcolor="white", color="#888888"];
+  f1 [label="쿠옹이: 검증을 통과하지 못했어요.\n예: 팔이 닿지 않는 곳이 있어요.\n실패한 곳을 빨간 점으로 표시하고 ①로 복귀"];
+  ok1 [label="쿠옹이: 검증을 통과했어요.\n이동할까요, 더 고칠까요?\n그 밖의 말이나 무응답: 움직이지 않고 대기"];
+  m1 [label="④ 쿠옹이: 이동을 시작할게요.\n가는 길로 이동 중"];
+  ask1 [label="⑤ 쿠옹이: 목표에 도착했어요.\n돌아오는 길을 수정할까요,\n가던 길 그대로 반대로 돌아갈까요?"];
+  c1 [label="⑥ 사용자 선택\n(입력이 올 때까지 기다림)", style="rounded,dashed", fillcolor="white", color="#888888"];
+  rev [label="가던 길(고친 가는 길)을\n거꾸로 따라 이동 중", fillcolor="#EEEBFB", color="#5B4BB7"];
+  edit2 [label="2단계: 돌아오는 길 수정\n①과 같은 방식으로 고친 뒤 수정 완료 → 검증", fillcolor="#EEEBFB", color="#5B4BB7"];
+  v2c [label="검증 결과", style="rounded,dashed", fillcolor="white", color="#888888"];
+  f2 [label="쿠옹이: 검증을 통과하지 못했어요.\n실패한 곳을 빨간 점으로 표시하고\n2단계로 복귀", fillcolor="#EEEBFB", color="#5B4BB7"];
+  ok2 [label="쿠옹이: 검증을 통과했어요.\n이동할까요, 더 고칠까요?\n그 밖의 말이나 무응답: 움직이지 않고 대기", fillcolor="#EEEBFB", color="#5B4BB7"];
+  v2 [label="고친 돌아오는 길로 이동 중", fillcolor="#EEEBFB", color="#5B4BB7"];
+  ask2 [label="⑦ 쿠옹이: 처음 자리로 돌아왔어요.\n새 목표로 다시 해 볼까요?"];
+  c2 [label="⑧ 사용자 선택", style="rounded,dashed", fillcolor="white", color="#888888"];
+  newt [label="새 목표와 새 가는 길 생성\n→ ①로"];
+  save [label="경로 저장하기\n고친 가는 길·돌아오는 길을 파일로 저장\n쿠옹이: 경로를 저장했어요.", fillcolor="#E6F4EE", color="#2E7D5B"];
+
+  node [fillcolor="#FDF0E6", color="#C0661A"];
+  sA [label="즉시 정지 · 쿠옹이: 멈췄어요.\n계속 가 · 돌아가 외의 말이나 무응답:\n멈춘 채 대기 (5초 뒤 한 번 다시 물음)"];
+  bA [label="출발 자리로 돌아옴\n→ 이동할지 다시 물음"];
+  sB [label="즉시 정지 · 쿠옹이: 멈췄어요.\n계속 가 · 돌아가 외의 말이나 무응답:\n멈춘 채 대기 (5초 뒤 한 번 다시 물음)"];
+  bB [label="목표 자리로 돌아옴\n→ ⑤ 다시 물음"];
+  sC [label="즉시 정지 · 쿠옹이: 멈췄어요.\n계속 가 · 돌아가 외의 말이나 무응답:\n멈춘 채 대기 (5초 뒤 한 번 다시 물음)"];
+  bC [label="목표 자리로 돌아옴\n→ 이동할지 다시 물음"];
+
+  node [style="rounded,filled", fillcolor="#F2F0EA", color="#9A968C", fontsize=13, margin="0.15,0.06", penwidth=1];
+  p_fail [label="실패"]; p_pass [label="통과"]; p_fail2 [label="실패"]; p_pass2 [label="통과"];
+  p_a1 [label="도착"]; p_a2 [label="도착"]; p_a3 [label="도착"];
+  p_rev [label="반대로 돌아가"]; p_edit [label="수정할래"];
+  p_yes [label="응"]; p_no [label="아니"];
+  p_go1 [label="이동해 · 응"]; p_more1 [label="더 고칠래"];
+  p_go2 [label="이동해 · 응"]; p_more2 [label="더 고칠래"];
+  node [fillcolor="#FBE3D0", color="#C0661A"];
+  p_s1 [label="멈춰"]; p_s2 [label="멈춰"]; p_s3 [label="멈춰"];
+  aF [label="계속 가"]; aB [label="돌아가"];
+  bF [label="계속 가"]; bBk [label="돌아가"];
+  cF [label="계속 가"]; cBk [label="돌아가"];
+
+  start -> edit1 -> done1 -> v1;
+  v1 -> p_pass [arrowhead=none]; p_pass -> ok1;
+  ok1 -> p_go1 [arrowhead=none]; p_go1 -> m1;
+  ok1 -> p_more1 [arrowhead=none]; p_more1 -> edit1 [style=dashed, constraint=false];
+  v1 -> p_fail [arrowhead=none]; p_fail -> f1;
+  f1 -> edit1 [style=dashed];
+  m1 -> p_a1 [arrowhead=none]; p_a1 -> ask1;
+  ask1 -> c1;
+  c1 -> p_rev [arrowhead=none]; p_rev -> rev;
+  c1 -> p_edit [arrowhead=none]; p_edit -> edit2 -> v2c;
+  v2c -> p_pass2 [arrowhead=none]; p_pass2 -> ok2;
+  ok2 -> p_go2 [arrowhead=none]; p_go2 -> v2;
+  ok2 -> p_more2 [arrowhead=none]; p_more2 -> edit2 [style=dashed, constraint=false];
+  v2c -> p_fail2 [arrowhead=none]; p_fail2 -> f2;
+  f2 -> edit2 [style=dashed, constraint=false];
+  rev -> p_a2 [arrowhead=none]; p_a2 -> ask2;
+  v2 -> p_a3 [arrowhead=none]; p_a3 -> ask2;
+  ask2 -> c2;
+  c2 -> p_yes [arrowhead=none]; p_yes -> newt;
+  c2 -> p_no [arrowhead=none]; p_no -> save;
+  newt -> edit1 [style=dashed, constraint=false];
+
+  edge [color="#C0661A"];
+  m1 -> p_s1 [arrowhead=none]; p_s1 -> sA;
+  sA -> aF [arrowhead=none]; aF -> p_a1 [constraint=false];
+  sA -> aB [arrowhead=none]; aB -> bA;
+  bA -> ok1 [constraint=false];
+
+  rev -> p_s2 [arrowhead=none]; p_s2 -> sB;
+  sB -> bF [arrowhead=none]; bF -> p_a2 [constraint=false];
+  sB -> bBk [arrowhead=none]; bBk -> bB;
+  bB -> ask1 [constraint=false];
+
+  v2 -> p_s3 [arrowhead=none]; p_s3 -> sC;
+  sC -> cF [arrowhead=none]; cF -> p_a3 [constraint=false];
+  sC -> cBk [arrowhead=none]; cBk -> bC;
+  bC -> ok2 [constraint=false];
+
+  {rank=same; p_a1; p_s1}
+  {rank=same; p_a2; p_s2; p_a3; p_s3}
+  {rank=same; p_pass -> p_fail [style=invis]}
+  {rank=same; p_go1 -> p_more1 [style=invis]}
+  {rank=same; p_fail2 -> p_pass2 [style=invis]}
+  {rank=same; p_more2 -> p_go2 [style=invis]}
+}

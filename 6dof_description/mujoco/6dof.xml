@@ -1,0 +1,54 @@
+<mujoco model="6dof">
+  <compiler angle="radian" meshdir="../meshes/"/>
+
+  <asset>
+    <mesh name="base_link" content_type="model/stl" file="base_link.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="r_a_1" content_type="model/stl" file="r_a_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link_1" content_type="model/stl" file="link_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link__1__1" content_type="model/stl" file="link__1__1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="r_a__1__1" content_type="model/stl" file="r_a__1__1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="r_a__2__1" content_type="model/stl" file="r_a__2__1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="housing_1" content_type="model/stl" file="housing_1.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="base_link"/>
+    <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="base_link"/>
+    <body name="r_a_1" pos="0 0.002984 0.041554">
+      <inertial pos="0.0104256 0.000992663 0.0386486" quat="0.93748 -0.0205562 0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178"/>
+      <joint name="Revolute_1" pos="0 0 0" axis="0 0 1" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+      <geom pos="0 -0.002984 -0.041554" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="r_a_1"/>
+      <geom pos="0 -0.002984 -0.041554" type="mesh" rgba="0.7 0.7 0.7 1" mesh="r_a_1"/>
+      <body name="link_1" pos="0.04 0 0.0505">
+        <inertial pos="0.0362299 1.34955e-05 0.100939" quat="0.707082 -0.00594976 -0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243"/>
+        <joint name="Revolute_2" pos="0 0 0" axis="1 0 0" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="link_1"/>
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" rgba="0.7 0.7 0.7 1" mesh="link_1"/>
+        <body name="link__1__1" pos="0 0 0.2">
+          <inertial pos="-0.0362299 -1.32746e-05 0.100939" quat="0.707082 0.00594976 0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243"/>
+          <joint name="Revolute_3" pos="0 0 0" axis="-1 0 0" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="link__1__1"/>
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" rgba="0.7 0.7 0.7 1" mesh="link__1__1"/>
+          <body name="r_a__1__1" pos="0 0 0.2">
+            <inertial pos="0.0386489 -0.000992442 0.0104253" quat="0.0125806 0.417234 -0.0164903 0.908562" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178"/>
+            <joint name="Revolute_4" pos="0 0 0" axis="1 0 0" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+            <geom pos="-0.04 -0.002984 -0.492054" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="r_a__1__1"/>
+            <geom pos="-0.04 -0.002984 -0.492054" type="mesh" rgba="0.7 0.7 0.7 1" mesh="r_a__1__1"/>
+            <body name="r_a__2__1" pos="0.0505 0 0.04">
+              <inertial pos="-0.0104256 -0.000992442 0.0386486" quat="0.93748 0.0205562 -0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178"/>
+              <joint name="Revolute_5" pos="0 0 0" axis="0 0 1" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+              <geom pos="-0.0905 -0.002984 -0.532054" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="r_a__2__1"/>
+              <geom pos="-0.0905 -0.002984 -0.532054" type="mesh" rgba="0.7 0.7 0.7 1" mesh="r_a__2__1"/>
+              <body name="housing_1" pos="-0.04 0 0.0505">
+                <inertial pos="-0.0135423 1.10449e-07 -2.74563e-07" mass="0.0705354" diaginertia="8.5e-05 4.8e-05 4.8e-05"/>
+                <joint name="Revolute_6" pos="0 0 0" axis="-1 0 0" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+                <geom pos="-0.0505 -0.002984 -0.582554" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.7 0.7 0.7 1" mesh="housing_1"/>
+                <geom pos="-0.0505 -0.002984 -0.582554" type="mesh" rgba="0.7 0.7 0.7 1" mesh="housing_1"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

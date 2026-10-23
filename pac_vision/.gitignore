@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# 현장에서 생성되는 파일 (형식 예시는 config/cam2base.example.yaml)
+config/cam2base.yaml
+config/local.yaml
+config/pose.yaml
+data/sessions/*
+!data/sessions/.gitkeep
+# YOLO 가중치 (실행 시 자동으로 내려받음)
+*.pt

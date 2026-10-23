@@ -1,0 +1,7 @@
+# 물체 인식(YOLO) 설정
+model: yolo26n.pt        # 파일 이름만. 없으면 ultralytics가 처음 실행할 때 내려받는다. 로컬 경로는 --model로 덮어쓴다
+conf: 0.25
+imgsz: 640
+classes: [39, 41]        # COCO: 39 bottle, 41 cup. null이면 전체 클래스
+tracker: bytetrack.yaml  # 추적기 (lap 패키지가 없으면 추적 없이 검출만 하고 최근접 대체로 선택을 잇는다)
+device: cpu

@@ -1,0 +1,7 @@
+.venv/
+.cache/
+.tmp/
+logs
+__pycache__/
+*.pyc
+saved_paths

@@ -1,0 +1,14 @@
+# 가상환경
+.venv/
+.venv-voice/
+# 파이썬 캐시
+__pycache__/
+*.pyc
+# 실행 기록·저장 결과 (대화 내용이 들어 있으므로 올리지 않는다)
+voice/logs/
+mujoco_sim/logs/
+mujoco_sim/saved_paths/
+mujoco_sim/.cache/
+mujoco_sim/.tmp/
+# 비밀 설정
+.env

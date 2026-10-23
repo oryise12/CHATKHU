@@ -1,0 +1,14 @@
+{
+ "mujoco/scene.xml": "bec1ff0a4e1fb224a4f369fc9a47fa16dcd84d5529328b25fba7cab155987804",
+ "mujoco/6dof_control.xml": "90143b55a53c818c2fe6fb2137268c6d525a211b625bea57849e4be2eebbed42",
+ "meshes/base_link.stl": "3bc640575627f9e78849784212f124aaac45bc9283b32a6157195d161cf3edac",
+ "meshes/r_a_1.stl": "d73a3419ec13334f376db0de9891af21a9c35e299bd5ca34e4e44fda66efd5fb",
+ "meshes/link_1.stl": "7f24e5d1ef43c28b9455615a0f9cb9cccb5acdf10d609333b614ba56a30ccfb7",
+ "meshes/link__1__1.stl": "95d388eeae5f99b4eaa07d8f2de2150d50e6e1f507bc82571149a410ca3fd5af",
+ "meshes/r_a__1__1.stl": "28526e462a07e790f2589b802c4b0fad0ea212458d8190b6589e8a0d6fd17615",
+ "meshes/r_a__2__1.stl": "e7158912836a46d24a6208d9d4948895e44b69946c078e5ef1741c1e17ace851",
+ "meshes/housing_1.stl": "a6d9dba509929dae135b1b775521476f8a5ff0554b9ddd3cd3797bb4d8df6dc0",
+ "urdf/6dof.xacro": "b009e6434cb482caadd91eca3821fa2cb0def2eab11837133ab6607ddac0b0de",
+ "urdf/6dof.urdf": "1aec89b09c35a2563c03a88f4e37a78d55f5a51dd7887f4f01e949bcdd0f4098",
+ "urdf/materials.xacro": "61c66150bc6b52c0f50d0697e08fe06497433d8ec978b4eb8941577695fd3595"
+}

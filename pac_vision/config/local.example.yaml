@@ -1,0 +1,12 @@
+# 이 컴퓨터에만 맞는 값. config/local.yaml(git 제외)로 복사해 필요한 줄만 남긴다.
+# 커밋된 config/*.yaml을 고치지 않고 덮어쓴다. 아래 키만 받는다 (다른 키가 있으면 오류).
+camera:
+  rgb:
+    device: 2                         # RGB 장치 번호. 없으면 이름(name_match)으로 자동 탐색
+  openni:
+    redist: ~/ros2_astra_camera/astra_camera/openni2_redist/x64   # libOpenNI2.so가 있는 폴더
+  ui:
+    font: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc  # 한글 글꼴 (없으면 영어 문구)
+detect:
+  model: ~/vision_test/yolo26n.pt     # 받아 둔 YOLO 가중치 경로 (--model과 같음)
+  device: cpu

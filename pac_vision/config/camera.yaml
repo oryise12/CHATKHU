@@ -1,0 +1,53 @@
+# Astra Pro 카메라 설정. 길이 단위는 m (depth 원본 영상만 mm).
+# 카메라 광학 좌표계: +X 오른쪽, +Y 아래, +Z 정면 (depth 좌우반전 보정 후, REP-103)
+
+openni:
+  # Orbbec OpenNI2 redist 폴더 (libOpenNI2.so가 있는 곳). ~ 는 홈 폴더로 바뀐다.
+  # ⚠️ 컴퓨터마다 다름: 다르면 이 파일을 고치지 말고 config/local.yaml에 openni.redist를 적는다
+  redist: ~/ros2_astra_camera/astra_camera/openni2_redist/x64
+
+rgb:
+  # 장치 번호는 컴퓨터마다 다르다. 여기 적지 않으면 /sys/class/video4linux/*/name에 name_match가 들어간 장치 중
+  # 프레임이 읽히는 첫 장치를 쓴다. 고정하려면 config/local.yaml에 rgb.device를 적는다 (local.example.yaml 참고).
+  # ⚠️ Jazzy: 장치 이름 문자열이 다를 수 있음. 확인: for d in /dev/video*; do echo -n "$d : "; cat /sys/class/video4linux/$(basename $d)/name; done
+  name_match: Astra
+  # 640x480 = 4:3 전체 화면. 16:9 모드(1280x720, 1920x1080)는 위아래가 잘린 가운데 띠다 (2026-10-02 측정).
+  width: 640
+  height: 480
+
+depth:
+  width: 640
+  height: 480
+  fx: 570.0          # 화각(58.6° x 45.6°)으로 계산, 렌즈 왜곡 보정 없음
+  fy: 570.0
+  cx: 320.0
+  cy: 240.0
+  z_offset_m: -0.021 # Z = depth_mm/1000 - z_offset_m (기준: 하우징 앞면 → 타깃 앞면)
+  flip: true         # depth를 먼저 좌우반전하고 X 부호는 + (한 가지 방식으로 통일)
+  min_m: 0.6         # 이보다 가까우면 depth가 0으로 나옴
+  max_m: 4.0
+
+rgb_to_depth:
+  # 640x480 RGB 픽셀 (u, v) → depth 픽셀 (depth 좌우반전 후 기준), 거리 식:
+  #   u_d = sx*u + (a + b*u + c*v + d/Z)     ← dx: {a, b, c, d}
+  #   v_d = sy*v + (a + b*u + c*v + d/Z)     ← dy: {a, b, c, d}
+  # Z = 그 점의 카메라 광학 Z (m) = depth_mm/1000 - z_offset_m (Z_OFFSET 적용 후).
+  #     check_camera.py 쌍 CSV의 Z, 책상 평면 교점의 Z, 물체 점의 Z가 모두 이 정의다.
+  # 옛 형식 dx: 23 (숫자 하나)도 읽는다 = {a: 23, b: 0, c: 0, d: 0} (고정값, 예전과 같은 계산).
+  # 계수는 tools/fit_rgb_to_depth.py로 쌍 CSV에서 맞춘다. 설치 위치마다 다시 잰다.
+  sx: 1.0
+  sy: 1.0
+  z_ref_m: 1.0       # 점의 Z를 모를 때 쓰는 값. 거리 식(d ≠ 0)에서 이 값이 실제로 쓰이면 경고가 출력된다
+  # ⚠️ 현장 측정 없이 쓰지 말 것. 아래 값은 옛 형식(고정 dx·dy) 호환용 기본값일 뿐이다.
+  # 정합 계수는 설치 자세마다 다르다: check_camera.py로 쌍을 재고
+  #   python tools/fit_rgb_to_depth.py <쌍 CSV ...> --write-pose
+  # 로 config/pose.yaml(git 제외)을 만든다. pose.yaml이 있으면 이 값 대신 그 값을 쓴다 (예시: pose.example.yaml).
+  # pose.yaml이 없으면 calibrate.py는 실행을 거부하고(시연용 --allow-default-pose), detect는 경고한다.
+  dx: 23.0
+  dy: 8.0
+
+ui:
+  # 화면에 한글을 그릴 글꼴. 없거나 Pillow가 없으면 영어 문구로 자동 대체한다. ⚠️ 컴퓨터마다 다름 (local.yaml의 ui.font로 덮어씀)
+  font: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+  font_size: 16
+  axis_len_m: 0.10      # 화면에 그리는 base 축 화살표 길이 (빨강 X, 초록 Y, 파랑 Z)

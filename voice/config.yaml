@@ -1,0 +1,41 @@
+# 음성 경로 수정 도우미 설정. python3 -m voice --config 다른파일.yaml 로 바꿔 쓸 수 있다.
+# API 키는 여기에 넣지 않는다. 환경변수 BAZE_API_KEY에서만 읽는다.
+
+wake_word: 쿠옹아
+# 음성 자막에서 호출어가 다르게 적히는 표기 (manipulator 쿠옹이의 실제 마이크 실측 목록과 같다).
+# 문장 맨 앞 두 단어 안에서만 찾으므로 짧은 표기도 문장 중간 말에는 걸리지 않는다.
+wake_aliases: [쿠옹, 쿠옹이, 쿠옹이야, 쿠엉아, 쿠엉, 쿠오나, 쿠오아, 쿠오가, 꾸옹아, 궁아, 공아, kuong, kuonga,
+               구홍아, 구공아, 구옹아, 궁어, 구운화, 구웅아, 공화, 궁화, 푸옹아, 붕어]
+# 문장 첫 단어가 호출어와 첫 글자만 다를 때도 호출어로 본다
+wake_fuzzy: true
+# 다른 말 없이 이 말 한 마디만 하면 부른 것으로 본다 (비우면 끔: call_words: [])
+call_words: [야]
+# 호출어를 들은 뒤, 마지막 대화로부터 이 시간(초) 안에는 호출어 없이 말해도 된다
+wake_seconds: 30
+
+model: gemini-3.8-live
+# AI 목소리 (Gemini 기본 목소리 이름: Kore, Puck, Charon, Aoede, Fenrir, Leda, Orus, Zephyr 등)
+voice: Kore
+
+# 지시문 파일. 버전을 바꿔 가며 비교한다 (기록에 파일 이름이 남는다)
+prompt: prompts/system_v1.md
+# 말투 지시문 (지시문의 {style} 자리에 들어간다)
+style: 차분하고 짧은 존댓말로 말한다.
+
+# 얼마나 → 옮기는 거리(cm). 가짜 결과에 넣어 돌려준다
+amount_cm:
+  small: 2
+  medium: 5
+  large: 8
+
+# 시험용 실패 모드. 켜면 수정 함수가 {"status":"failed","reason":...}을 돌려준다
+fail_mode: false
+fail_reason: unreachable
+
+# 마이크 (번호 또는 이름 일부, 비우면 운영체제 기본 입력)
+mic: ""
+# AI가 말하는 동안 마이크 소리 대신 무음을 보낸다 (스피커 소리를 다시 듣지 않게)
+mute_mic_while_speaking: true
+
+# 대화 기록(JSONL) 폴더
+log_dir: logs
