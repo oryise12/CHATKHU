@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i-ROBOT · Chat KHU</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<!-- camera image with the projected path (pinch_sim/webui.py /stream); mouse on it edits the path -->
+<div id="stage">
+<canvas id="backdrop" width="192" height="108"></canvas>
+<img id="video" alt="" draggable="false">
+<div id="video-wait" class="video-wait">카메라 화면을 기다리는 중이에요</div>
+
+<!-- side rail (Component 2 "미니 옆 창") -->
+<nav id="rail" class="rail">
+  <img class="rail-logo" src="/static/assets/logo-khu-small.svg" alt="">
+  <button class="rail-item rail-new" data-nav="new" title="새 대화 시작"><img src="/static/assets/add-plus.svg" alt=""></button>
+  <button class="rail-item" data-nav="chat" title="쿠챗"><img src="/static/assets/comment.svg" alt=""></button>
+  <button class="rail-item" data-nav="saved" title="저장된 경로"><img src="/static/assets/route-small.svg" alt=""></button>
+  <button class="rail-item" data-nav="recent" title="최근 대화"><img src="/static/assets/calendar-clock.svg" alt=""></button>
+  <button id="fullscreen" class="rail-item rail-full" title="전체 화면 (F) · 창 모드로 돌아가기 (Esc)">
+    <svg class="fs-enter" viewBox="0 0 24 24" fill="none" stroke="#707070" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    <svg class="fs-exit" viewBox="0 0 24 24" fill="none" stroke="#707070" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
+  </button>
+  <button class="rail-item rail-settings" data-nav="settings" title="설정"><img src="/static/assets/settings.svg" alt=""></button>
+</nav>
+<button id="rail-open" class="circle-btn rail-open" title="메뉴 펼치기"><img src="/static/assets/button-back-open.svg" alt=""></button>
+
+<!-- expanded sidebar (Component 2 "중간_열림") -->
+<nav id="sidebar" class="sidebar hidden">
+  <div class="side-logo"><span class="side-logo-bar"></span><img src="/static/assets/logo-union.svg" alt=""></div>
+  <div class="side-name"><b>Chat KHU</b><span>AI 로봇 어시스턴트</span></div>
+  <div class="side-items">
+    <button class="side-item filled" data-nav="new"><img src="/static/assets/add-plus.svg" alt=""><span>새 대화 시작</span></button>
+    <button class="side-item" data-nav="chat"><img src="/static/assets/comment.svg" alt=""><span>쿠챗</span></button>
+    <button class="side-item" data-nav="saved"><img src="/static/assets/route-small.svg" alt=""><span>저장된 경로</span><em>New</em></button>
+    <button class="side-item filled" data-nav="recent"><img src="/static/assets/calendar-clock.svg" alt=""><span>최근 대화</span>
+      <img class="chev" src="/static/assets/arrow-ios-back.svg" alt=""></button>
+  </div>
+  <button class="side-item side-settings" data-nav="settings"><img src="/static/assets/settings.svg" alt=""><span>설정</span></button>
+</nav>
+<button id="side-close" class="circle-btn side-close hidden" title="메뉴 접기"><img src="/static/assets/button-back.svg" alt=""></button>
+
+<!-- Chat KHU panel (Group 29, white) -->
+<section id="chat" class="chat">
+  <img class="chat-logo" src="/static/assets/logo-khu.svg" alt="">
+  <div class="chat-name"><b>Chat KHU</b><span>AI 로봇 어시스턴트</span></div>
+  <div id="chat-intro" class="chat-intro">
+    <p class="intro-title">쿠옹이에게<br>말을 걸어보세요</p>
+    <p class="intro-sub">음성으로 로봇팔의 움직임을<br>자유롭게 제어할 수 있어요.</p>
+    <span id="intro-status" class="intro-status">쿠옹이 연결 대기</span>
+  </div>
+  <div id="chat-list" class="chat-list"></div>
+  <form id="chat-form" class="chat-input" autocomplete="off">
+    <label class="input-pill"><input id="chat-text" placeholder="하고 싶은 것을 입력해 주세요"><img src="/static/assets/mic.svg" alt=""></label>
+    <button class="send" type="submit" title="보내기"><img src="/static/assets/send-arrow.svg" alt=""></button>
+  </form>
+</section>
+<button id="chat-close" class="circle-btn chat-close" title="쿠챗 닫기"><img src="/static/assets/button-back.svg" alt=""></button>
+
+<!-- 4-step menu (Menu) + its chip, height graph button, brand -->
+<div id="menu" class="menu">
+  <button class="step" data-step="0" title="경로설정 (N)"><img src="/static/assets/route.svg" alt=""></button>
+  <button class="step" data-step="1" title="수정 (E)"><img src="/static/assets/pen-tool.svg" alt=""></button>
+  <button class="step" data-step="2" title="검증 (S, V)"><img src="/static/assets/check-square.svg" alt=""></button>
+  <button class="step" data-step="3" title="이동 (Y)"><img src="/static/assets/move-right.svg" alt=""></button>
+  <div id="chip" class="chip"><img alt=""><span></span></div>
+</div>
+<button id="graph-btn" class="graph-btn" title="높이 그래프"><span><img src="/static/assets/chart-line.svg" alt=""></span></button>
+<img class="brand" src="/static/assets/logo-irobot.png" alt="i-ROBOT">
+<div id="badges" class="badges"></div>
+
+<!-- height graph (Home "흰") -->
+<section id="graph" class="graph hidden">
+  <div class="graph-head">
+    <p class="graph-title">높이 그래프</p>
+    <p id="graph-now" class="graph-now">-</p>
+  </div>
+  <div class="graph-meta">
+    <img src="/static/assets/chart-bar-vertical.svg" alt="">
+    <p id="graph-route">-</p>
+    <p id="graph-min">-</p>
+  </div>
+  <svg id="graph-svg" class="graph-svg" viewBox="0 0 664 174" preserveAspectRatio="none"></svg>
+  <div id="graph-max-card" class="hcard"><small>Maximum Height</small><b></b><em class="max">MAX</em></div>
+  <div id="graph-min-card" class="hcard"><small>Minimum Height</small><b></b><em class="min">MIN</em></div>
+</section>
+
+<!-- bottom: edit tools, run / stop -->
+<div id="actions" class="actions"></div>
+
+<!-- what to say now (shown when the chat panel is folded) -->
+<div id="suggest" class="suggest hidden"></div>
+
+<!-- small 3-D simulator view (pinch_sim/sim_view.py, GET /sim): drag to turn it around the middle of the path -->
+<div id="simview" class="simview" title="끌어서 돌려 보기"><img id="sim" alt="" draggable="false"></div>
+
+<div id="toasts" class="toasts"></div>
+</div>
+
+<div id="dialog-layer" class="dialog-layer hidden">
+  <div class="dialog" role="alertdialog">
+    <div class="dialog-content"><p id="dialog-title" class="dialog-title"></p><p id="dialog-body" class="dialog-body"></p></div>
+    <div class="dialog-actions"><button id="dialog-cancel">취소</button><button id="dialog-ok" class="ok"></button></div>
+  </div>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

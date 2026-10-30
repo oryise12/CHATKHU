@@ -1,0 +1,27 @@
+test,object,spot,setting,box,repeat,x,y,z,exp_x,exp_y,exp_z,top_valid_pct,band_top_inner_pct,note
+object_vs_tape,cup_open,ext_a,current,yolo,1,0.343,0.265,0.065,0.3485,0.315,0.072,,,detect [선택] 한 프레임. 입구 열린 컵
+object_vs_tape,cup_open,ext_a,current,yolo,2,0.345,0.265,0.063,0.3485,0.315,0.072,,,detect [선택] 한 프레임. 입구 열린 컵
+object_vs_tape,cup_lid,ext_a,current,yolo,1,0.348,0.281,0.074,0.3485,0.315,0.072,,,detect [선택] 한 프레임. 종이 뚜껑
+object_vs_tape,cup_lid,ext_a,current,yolo,2,0.350,0.282,0.073,0.3485,0.315,0.072,,,detect [선택] 한 프레임. 종이 뚜껑
+object_vs_tape,cup_lid,ext_c,current,yolo,1,-0.296,-0.130,0.072,-0.2985,-0.105,0.072,,,detect [선택] 한 프레임. 종이 뚜껑
+object_vs_tape,cup_lid,ext_d,current,yolo,1,,,,0.1485,-0.255,0.072,,,좌표 없음 (depth 부족). 윗면 Z가 depth 최소 거리 0.6 m 근처로 추정
+setting_compare,cup_lid,ext_a,current,yolo,1,0.3506,0.2831,0.0722,0.3485,0.315,0.072,,,30프레임 평균. σ 1.5/2.3/0.6 mm
+setting_compare,cup_lid,ext_a,alt,yolo,1,0.3514,0.2906,0.0727,0.3485,0.315,0.072,,,30프레임 평균. σ 2.0/6.1/1.0 mm
+setting_compare,cup_lid,ext_a,current,yolo,2,0.3510,0.2796,0.0712,0.3485,0.315,0.072,,,30프레임 평균. σ 1.7/1.1/0.5 mm
+setting_compare,cup_lid,ext_a,alt,yolo,2,0.3524,0.2816,0.0712,0.3485,0.315,0.072,,,30프레임 평균. σ 2.1/1.6/0.5 mm
+setting_compare,cup_lid,ext_c,current,yolo,1,-0.2936,-0.1334,0.0732,-0.2985,-0.105,0.072,,,30프레임 평균. σ 1.1/0.5/0.3 mm
+setting_compare,cup_lid,ext_c,alt,yolo,1,-0.2936,-0.1316,0.0732,-0.2985,-0.105,0.072,,,30프레임 평균. σ 1.4/1.0/0.3 mm
+setting_compare,cup_lid,ext_c,current,yolo,2,-0.2930,-0.1345,0.0729,-0.2985,-0.105,0.072,,,30프레임 평균. σ 0.8/0.5/0.3 mm
+setting_compare,cup_lid,ext_c,alt,yolo,2,-0.2931,-0.1333,0.0729,-0.2985,-0.105,0.072,,,30프레임 평균. σ 1.1/0.7/0.2 mm
+depth_diag,cup_lid,ext_a,current,yolo,1,0.3470,0.2773,0.0703,0.3485,0.315,0.072,11,6,30프레임 평균. 지름 71 mm
+depth_diag,cup_lid,ext_a,alt,yolo,1,0.3471,0.2792,0.0703,0.3485,0.315,0.072,11,,30프레임 평균
+depth_diag,cup_lid,ext_a,current,ideal,1,0.3450,0.2777,0.0702,0.3485,0.315,0.072,11,6,30프레임 평균
+depth_diag,cup_lid,ext_a,alt,ideal,1,0.3450,0.2793,0.0702,0.3485,0.315,0.072,11,,30프레임 평균
+depth_diag,cup_lid,ext_a,current,yolo,2,0.3482,0.2772,0.0704,0.3485,0.315,0.072,12,5,30프레임 평균
+depth_diag,cup_lid,ext_a,alt,yolo,2,0.3482,0.2791,0.0704,0.3485,0.315,0.072,12,,30프레임 평균
+depth_diag,cup_lid,ext_a,current,ideal,2,0.3463,0.2777,0.0704,0.3485,0.315,0.072,12,6,30프레임 평균
+depth_diag,cup_lid,ext_a,alt,ideal,2,0.3465,0.2793,0.0704,0.3485,0.315,0.072,12,,30프레임 평균
+depth_diag,box_48mm,ext_a,current,ideal,1,0.3567,0.2720,0.0498,0.3485,0.315,0.048,40,55,30프레임 평균. 18.1x11.2 cm 긴 변 = X
+depth_diag,box_48mm,ext_a,alt,ideal,1,0.3586,0.2863,0.0501,0.3485,0.315,0.048,40,,30프레임 평균
+depth_diag,box_48mm,ext_a,current,ideal,2,0.3565,0.2653,0.0497,0.3485,0.315,0.048,36,51,30프레임 평균
+depth_diag,box_48mm,ext_a,alt,ideal,2,0.3606,0.2813,0.0498,0.3485,0.315,0.048,36,,30프레임 평균

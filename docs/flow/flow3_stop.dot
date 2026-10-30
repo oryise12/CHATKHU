@@ -1,0 +1,21 @@
+digraph G {
+  include_common
+  moving [label="이동 중\n(가는 길 또는 돌아오는 길)"];
+  stop [label="사용자: 멈춰 (정지 · 스톱 · 그만)\n→ 말이 들리자마자 즉시 정지\n(쿠옹이를 부르지 않아도 됨)", fillcolor="#FDF0E6", color="#C0661A"];
+  said [label="쿠옹이: 멈췄어요."];
+  wait5 [label="5초 안에 다음 명령이 있나?", style="rounded,dashed", fillcolor="white", color="#888888"];
+  ask [label="쿠옹이: 계속 갈까요, 돌아갈까요?\n(호출어 없이 한 번 답하면 됨: 계속 가 · 돌아가만 받음)"];
+  choose [label="사용자 선택\n(계속 가 · 돌아가 외의 말이나 무응답:\n멈춘 채 대기)", style="rounded,dashed", fillcolor="white", color="#888888"];
+  fwd [label="멈춘 자리에서 원래 가던 곳까지\n쿠옹이: 검증할게요. 통과하면 바로 움직여요.\n→ 도착 (가는 길이면 ⑤, 돌아오는 길이면 ⑦)"];
+  back [label="멈춘 자리에서 그 길이 시작된 곳으로\n쿠옹이: 검증할게요. 통과하면 바로 움직여요.\n→ 도착하면 가는 길 · 고친 돌아오는 길: 그 길의 수정으로 복귀\n(고친 내용 유지, 수정 완료라고 하면 다시 검증 후 이동) /\n거꾸로 오던 길: ⑤ 다시 물음"];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F2F0EA", color="#9A968C", fontsize=13, margin="0.15,0.06", penwidth=1];
+  p_yes [label="있음 (계속 가 / 돌아가)"]; p_no [label="없음 (5초 지남)"];
+  p_f [label="계속 가 · 마저 가"]; p_b [label="돌아가 · 반대로 가"];
+
+  moving -> stop -> said -> wait5;
+  wait5 -> p_yes [arrowhead=none]; p_yes -> choose;
+  wait5 -> p_no [arrowhead=none]; p_no -> ask -> choose;
+  choose -> p_f [arrowhead=none]; p_f -> fwd;
+  choose -> p_b [arrowhead=none]; p_b -> back;
+}

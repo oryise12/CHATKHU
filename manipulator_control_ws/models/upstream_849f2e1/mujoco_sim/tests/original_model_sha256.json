@@ -1,0 +1,22 @@
+{
+ "mujoco/scene.xml": "bec1ff0a4e1fb224a4f369fc9a47fa16dcd84d5529328b25fba7cab155987804",
+ "mujoco/6dof_control.xml": "8fc24243633a3401c68132475efa760c0bf2a77d382482e6df30f4b5e886f379",
+ "meshes/base_link.stl": "3bc640575627f9e78849784212f124aaac45bc9283b32a6157195d161cf3edac",
+ "meshes/r_a_1.stl": "d73a3419ec13334f376db0de9891af21a9c35e299bd5ca34e4e44fda66efd5fb",
+ "meshes/link_1.stl": "7f24e5d1ef43c28b9455615a0f9cb9cccb5acdf10d609333b614ba56a30ccfb7",
+ "meshes/link__1__1.stl": "95d388eeae5f99b4eaa07d8f2de2150d50e6e1f507bc82571149a410ca3fd5af",
+ "meshes/r_a__1__1.stl": "28526e462a07e790f2589b802c4b0fad0ea212458d8190b6589e8a0d6fd17615",
+ "meshes/r_a__2__1.stl": "e7158912836a46d24a6208d9d4948895e44b69946c078e5ef1741c1e17ace851",
+ "meshes/housing_1.stl": "a6d9dba509929dae135b1b775521476f8a5ff0554b9ddd3cd3797bb4d8df6dc0",
+ "urdf/6dof.xacro": "b3a2ee9230c1a486509ebdc66a5a65ef7132ecbdd0705e8df470b9ee21954e6b",
+ "urdf/6dof.urdf": "d09438d90290fc18a86abf0bb3a84f6c167036bf1151576bba9257b12d8f1e63",
+ "urdf/materials.xacro": "9caa339ffa0a6814317922f8472faafaa9474684e94988f7137d94043813ca67",
+ "meshes/link_1_engraved.stl": "552401b905066416c99ddc7352defdeef4910dd401880418041b7751b34cf581",
+ "meshes/link_1_engraving.stl": "3b7e0fb56a458c56723680dbbf306e715d24ebe0e287b1b0a0e1b260d71d777a",
+ "meshes/link__1__1_engraved.stl": "a615bef98ca300a7595d85d22f6b6685b6a232d7288a128c9c40a9e6e30474f4",
+ "meshes/link__1__1_engraving.stl": "0d26337f471326a10506ca91d0ba3366636e4ea65378ada001967aee0a1ec9c8",
+ "meshes/link_1_ring.stl": "2c1cfb495015e4a3acb433a501b0c7d67bb133322022d682a7686b4f3d360a86",
+ "meshes/link__1__1_ring.stl": "273d4a2ade2adec3dffb57182eabe2ab6d57180958da1e341010d51b02d96e86",
+ "meshes/gripper_body.stl": "f870328015f6a39a3b77672979e594ac9c4440c7febd4cd4a76bfae9469e214b",
+ "meshes/gripper_fingers.stl": "86b93fa799db26115e655465d0b784ad8e376e24059a18fb80ad88506dc47bd7"
+}

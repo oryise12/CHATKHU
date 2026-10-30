@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pac-vision"
+version = "0.1.0"
+description = "Astra depth to robot base coordinates for PAC 26-1 (pure Python, ROS optional)"
+requires-python = ">=3.10"
+# 핵심 계산은 numpy·PyYAML만. 버전 고정 없음 (numpy 1.x·2.x 모두).
+# opencv·ultralytics·Pillow·openni·rclpy는 스크립트에서만 쓰므로 넣지 않는다 (README 설치 절 참고).
+dependencies = ["numpy", "PyYAML"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

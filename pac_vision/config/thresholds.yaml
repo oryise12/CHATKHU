@@ -1,0 +1,47 @@
+# 검사·판정 기준값. 모두 임시값이며 측정 후 조정한다. 길이 단위 m.
+
+placement:              # 배치 점검 화면
+  near_min_m: 0.6       # 화면 아래쪽(가까운 쪽) 책상까지 거리가 이보다 작으면 경고 (진행은 막지 않음)
+  far_max_m: 1.5        # 화면 위쪽(먼 쪽)이 이보다 멀면 경고. 정면 측정 노이즈: 0.8-1.5 m ±0.5-1.0 mm, 2.0 m ±23.5 mm
+  near_band: [0.85, 0.95]   # 화면 높이 비율로 본 아래쪽 띠
+  far_band: [0.05, 0.15]    # 위쪽 띠
+  invalid_dot_step_px: 8    # depth 없는 곳을 빨간 점으로 칠할 간격
+
+capture:
+  average_frames: 30        # Enter를 누르면 이만큼 평균해 정지 화면을 만든다
+  min_valid_fraction: 0.5   # 평균할 때 이 비율 이상의 프레임에서 depth가 있어야 유효 픽셀
+
+plane:                  # 책상 평면 맞춤 (클릭 5점을 감싸는 영역 안에서만)
+  roi_margin_px: 40
+  ransac_iters: 300
+  inlier_m: 0.005
+  max_points: 20000     # RANSAC 후보로 쓸 최대 점 수 (정제는 전체 점)
+  seed: 0               # 같은 입력이면 같은 결과가 나오도록 고정
+
+calibration:
+  base_error_max_m: 0.010     # base 점 홀드아웃 오차
+  a4_side_tol_m: 0.005        # A4 변 길이 허용 오차의 최솟값
+  a4_side_tol_px: 2           # 변마다 허용 오차 = max(a4_side_tol_m, 그 변 방향 이 픽셀 수만큼의 길이)
+  a4_short_side_min_px: 80    # A4 가장 짧은 변의 화면 길이. 작으면 경고만
+  point_patch_half_px: 2      # --depth-mode point: 클릭 점 주변 (2*2+1)^2 픽셀 중앙값
+
+check:
+  error_max_m: 0.010          # 재점검 (--check) 오차
+  desk_band_m: 0.02           # --check 평면 맞춤에 쓸 점: 보정 책상면 ±이 범위 (책상 끝 너머 바닥 제외)
+
+objects:
+  min_height_m: 0.01          # 책상면 위 이 높이를 넘는 픽셀만 물체로 본다 (책상면 z 판정에도 같은 값)
+  desk_band_m: 0.02           # 책상면 z 분포(캘리브레이션 결과·detect z)는 책상면 ±이 범위의 점만 쓴다
+  max_height_m: 0.5
+  top_percentile: 90          # z_top = 박스 안 물체 픽셀 높이의 이 백분위
+  top_band_m: 0.008           # x·y = z_top 아래 이 두께 안 픽셀의 중앙값. 두꺼우면 앞쪽 옆면이 섞여 카메라 쪽으로 치우침
+  min_pixels: 30              # 물체 픽셀이 이보다 적으면 "depth 부족" (발행 안 함)
+  box_shrink: 0.1             # 박스 테두리에서 안쪽으로 줄일 비율 (배경 줄이기)
+  lost_timeout_s: 1.0         # 선택 물체가 이 시간 이상 안 보이면 놓침
+  nearest_max_m: 0.05         # 추적 ID를 잃었을 때 마지막 위치에서 이 거리 안의 같은 클래스 검출로 대체
+
+demo:                         # show_base_coords.py (클릭 → base 좌표 확인 화면)
+  grid_step_m: 0.10           # g 키 책상면 격자 간격
+  max_points: 8               # 화면에 남길 최근 클릭 수
+  # 같은 값은 기존 키를 쓴다: 축 길이 camera.yaml ui.axis_len_m, D 평균 프레임 capture.average_frames,
+  # D 패치 calibration.point_patch_half_px, 격자를 자를 거리 placement.far_max_m

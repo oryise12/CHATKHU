@@ -1,0 +1,30 @@
+created: '2026-10-15T10:07:31'
+note: MOCK - made from the simulator camera, not a real calibration. Replace with
+  pac_vision's config/cam2base.yaml (same format). P_base = R @ P_cam + t, m; base
+  = +X forward, +Y left, +Z up.
+R:
+- - 0.7660481085632231
+  - 0.21984470683004248
+  - -0.6040187085227752
+- - 0.6427832413545262
+  - -0.2620047634471665
+  - 0.7198494346491934
+- - -6.909219489870111e-07
+  - -0.9396924011663642
+  - -0.3420207467241068
+t:
+- 0.5000000000000001
+- -0.3
+- 0.30000000000000004
+passed: true
+camera:
+  rgb:
+    width: 768
+    height: 480
+  depth:
+    width: 768
+    height: 480
+    fx: 415.69219381653056
+    fy: 415.69219381653056
+    cx: 383.5
+    cy: 239.5

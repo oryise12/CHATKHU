@@ -1,0 +1,14 @@
+[project]
+name = "manipulator_control"
+version = "0.1.0"
+description = "XM430 6-DOF arm: session calibration, real-state view, hold, HOME (servo profile), READY"
+requires-python = ">=3.12"
+# exact versions installed and tested: requirements.lock
+dependencies = ["dynamixel-sdk==4.0.3", "pyserial==3.5", "mujoco==3.15.0", "numpy==1.26.4", "pyyaml==6.0.3"]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

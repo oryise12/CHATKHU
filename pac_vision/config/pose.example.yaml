@@ -1,0 +1,12 @@
+# 설치 자세의 RGB→depth 정합 계수 예시. 실제 파일은 config/pose.yaml (git 제외)이고
+#   python tools/fit_rgb_to_depth.py <쌍 CSV ...> --write-pose
+# 가 만든다. 이 파일은 rgb_to_depth 키만 받는다 (다른 키가 있으면 오류).
+#
+# 아래 값: 2026-10-14 설치 자세 (카메라가 책상면 위 51 cm, 광축이 수평에서 약 21° 아래, 광택 책상).
+#   쌍 24개 중 맞춤 규칙에 맞는 20개로 맞춤, leave-one-out RMS dx 2.65 px / dy 1.59 px
+#   원자료: data/measurements/2026-10-14_pose_pairs.csv, 2026-10-14_pose_pairs_run2.csv (README 측정 12절)
+# 다른 설치 자세에서는 그대로 쓰지 말고 다시 잰다.
+camera:
+  rgb_to_depth:
+    dx: {a: 10.337, b: -0.020835, c: 0.025303, d: 13.064}
+    dy: {a: 13.039, b: -0.005141, c: -0.032642, d: 6.587}

@@ -1,0 +1,4 @@
+camera:
+  openni:
+    redist: $PINCH_KHU_ROOT/vendor/ros2_astra_camera/astra_camera/openni2_redist/x64
+  rotate_180: true

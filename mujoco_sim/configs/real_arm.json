@@ -1,0 +1,32 @@
+{
+  "_comment": "Overrides for pinch_sim.app --real-arm (real_arm.py): plan for the real arm of manipulator_control_ws (next to mujoco_sim). Merged into demo.json section by section, so they are part of config_sha. The arm's joint limits and HOME are read from its config/robot.yaml at start (never copied here). The real HOME is -1 x the demo ready pose: the real arm works on model -Y, so targets, the desk and the cameras are mirrored.",
+  "target": {
+    "front_y": -1.0,
+    "theta_range_deg": [-15.0, 55.0],
+    "new_theta_bands_deg": [[35.0, 50.0], [-10.0, 5.0]],
+    "_theta_note": "2026-10-26: under the real limits (J1 +-45, margin 0.05 rad) targets r 0.25-0.30 on -Y are reachable for theta -20..+60 deg; J1 = 0 points at theta ~ +20 (the 9 cm shoulder offset). The bands are +-15..30 deg around it; to be fixed with scripts/workspace_scan.py --real-arm."
+  },
+  "limits": {
+    "joint_speed_plan_ratio": 0.95,
+    "qdd_max_rad_s2": 1.2,
+    "_note": "0.95: the arm streams the trajectory with PV = speed + a small correction, capped at PV 262 = 22.5 deg/s; planning at 21.4 deg/s leaves that headroom. qdd 1.2 rad/s^2 = 68.8 deg/s^2 <= the arm's acceptance 70 (its stream PA is 100.6 deg/s^2)."
+  },
+  "validation": {
+    "self_clearance_m": 0.005,
+    "start_pos_tol_m": 0.003
+  },
+  "timing": {
+    "max_duration_s": 30.0
+  },
+  "desk": {
+    "top_y_m": [-0.5, 0.2]
+  },
+  "cameras": {
+    "side_cam": {"pos_m": [0.3, -0.5, 0.3], "lookat_m": [-0.33141, 0.02981, 0.0], "fovy_deg": 60.0},
+    "side_cam_alt": {"pos_m": [0.55, -0.25, 0.3], "lookat_m": [0.0, -0.24, 0.06], "fovy_deg": 60.0}
+  },
+  "real_arm": {
+    "a_stream_deg_s2": 100.6,
+    "mirror_desk": true
+  }
+}

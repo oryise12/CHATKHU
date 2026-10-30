@@ -1,0 +1,64 @@
+digraph G {
+  graph [fontname="Noto Sans CJK KR", bgcolor="white", rankdir=TB, nodesep=0.4, ranksep=0.42, pad=0.35, newrank=true, splines=ortho];
+  node [fontname="Noto Sans CJK KR Bold", fontsize=17, shape=box, style="rounded,filled", penwidth=1.6, margin="0.30,0.14", fontcolor="#1a1a1a"];
+  edge [color="#777777", arrowsize=0.8, penwidth=1.4, fontname="Noto Sans CJK KR", fontsize=14];
+
+  labelloc=t; label=<<FONT POINT-SIZE="30"><B>그림 2. 경로 수정 흐름도</B></FONT><BR/><FONT POINT-SIZE="15" COLOR="#666666">쿠옹이는 호출어 없이 계속 듣습니다 · 손 수정과 말 수정은 같은 기록에 남아 &quot;이전으로&quot;로 함께 되돌립니다</FONT><BR/> >;
+
+  start [label="수정 모드\n그릇(B·C)을 고르면 직선 경로가 그려지며 켜짐\n(또는 &quot;경로 수정할래&quot;)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+  how   [label="고치는 방법", fillcolor="#FFFFFF", color="#888888", style="rounded,filled,dashed"];
+  p_pinch [label="핀치로", fillcolor="#F2F0EA", color="#9A968C", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];   p_point [label="검지로 가리키고 말로", fillcolor="#F2F0EA", color="#9A968C", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+
+  pinch1 [label=<엄지·검지로 경로를 집어<BR/>3차원으로 옮김 (손을 놓는 순간 반영)<BR/><FONT POINT-SIZE="13">카메라 정합이 확인되고, 손이 카메라에서 60 cm 넘게 떨어져 있을 때</FONT>>, fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled"];
+  pinch2 [label="쿠옹이: 경로를 수정했어요.\n(수정 전 경로는 회색으로 겹쳐 보임)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+
+  point1 [label="경로 위 점을 검지로 0.4초 가리킴\n→ 노란 점으로 표시", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled"];
+  say    [label="점을 보고 말함\n예: &quot;여기 위로 조금&quot;, &quot;앞쪽으로 2센티&quot;", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled"];
+  judge  [label="쿠옹이(ChatKHU 음성 AI)가 말을 함수로 바꿈\n어디: 가리킨 점 · 시작 · 가운데 · 끝\n방향: 위 · 아래 · 왼쪽 · 오른쪽 · 앞 · 뒤\n얼마나: 조금 2 · 보통 5 · 많이 8 cm (말 안 하면 조금, 숫자는 15 cm까지)", fillcolor="#EEEBFB", color="#5B4BB7", style="rounded,filled"];
+  enough [label="정보가 충분한가?", fillcolor="#FFFFFF", color="#888888", style="rounded,filled,dashed"];
+  ask    [label="두 가지 중 고르게 되물음\n예: 위로 넘어갈까요, 옆으로 돌아갈까요?", fillcolor="#EEEBFB", color="#5B4BB7", style="rounded,filled"];
+  can    [label="말한 거리만큼 옮길 수 있나?", fillcolor="#FFFFFF", color="#888888", style="rounded,filled,dashed"];
+  far    [label="너무 많이 이동해서\n더 수정할 수 없어요. (경로는 그대로)", fillcolor="#FDECEC", color="#C62828", style="rounded,filled"];
+  moved  [label="여기를 위로 2센티 올렸어요.\n(수정 전 경로는 회색으로 겹쳐 보임)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+  p_short [label="부족", fillcolor="#F2F0EA", color="#9A968C", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"]; p_ok [label="충분", fillcolor="#F2F0EA", color="#9A968C", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"]; p_no [label="불가능", fillcolor="#F2F0EA", color="#9A968C", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"]; p_yes [label="가능", fillcolor="#F2F0EA", color="#9A968C", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+
+  next [label="다음 말이나 손 입력\n(올 때까지 기다림)", fillcolor="#FFFFFF", color="#888888", style="rounded,filled,dashed"];
+  s_more [label="&quot;조금만 더&quot; · &quot;아직 모자라&quot;", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+  s_less [label="&quot;너무 갔어&quot; · &quot;좀 덜&quot;", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+  s_undo [label="&quot;이전으로&quot; · &quot;되돌려&quot;", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+  s_reset [label="&quot;처음으로&quot; · &quot;초기화&quot;", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+  s_keep [label="&quot;그대로 둬&quot; · &quot;하지 마&quot;", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+  s_other [label="다른 점을 가리키거나 핀치", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+  s_done [label="&quot;수정 완료&quot; · &quot;이 경로로 할게&quot; · &quot;가보자&quot;", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize="14", margin="0.14,0.05", penwidth="1.1", fontname="Noto Sans CJK KR Bold"];
+  r_more [label="직전 수정을 한 단계 크게 다시\n2 → 5 → 8 cm (8에서는: 이미 가장 많이 옮겼어요)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+  r_less [label="직전 수정을 한 단계 작게 다시\n8 → 5 → 2 cm (2에서는: 이미 가장 조금 옮겼어요)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+  r_undo [label="직전 수정을 되돌렸어요.\n(손으로 고친 것도)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+  r_reset [label="처음 경로로 되돌렸어요.\n(지금까지의 수정을 모두 취소)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+  r_keep [label="네, 그대로 둘게요.\n(아무것도 움직이지 않음)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled"];
+  done   [label="쿠옹이: 검증 후 이동할까요?\n→ 그림 3 전체 흐름으로", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled", penwidth=3];
+
+  start -> how;
+  how -> p_pinch [arrowhead=none]; how -> p_point [arrowhead=none];
+  p_pinch -> pinch1 -> pinch2;
+  p_point -> point1 -> say -> judge -> enough;
+  enough -> p_short [arrowhead=none]; p_short -> ask; ask -> say [style=dashed, constraint=false];
+  enough -> p_ok [arrowhead=none]; p_ok -> can;
+  can -> p_no [arrowhead=none]; p_no -> far;
+  can -> p_yes [arrowhead=none]; p_yes -> moved;
+  pinch2 -> next; moved -> next; far -> next [style=dashed];
+  next -> s_more [arrowhead=none]; s_more -> r_more;
+  next -> s_less [arrowhead=none]; s_less -> r_less;
+  next -> s_undo [arrowhead=none]; s_undo -> r_undo;
+  next -> s_reset [arrowhead=none]; s_reset -> r_reset;
+  next -> s_keep [arrowhead=none]; s_keep -> r_keep;
+  next -> s_other [arrowhead=none]; s_other -> how [style=dashed, constraint=false];
+  next -> s_done [arrowhead=none]; s_done -> done;
+  {r_more r_less r_undo r_reset r_keep} -> next [style=dashed, constraint=false, color="#666666"];
+
+  {rank=same; p_pinch; p_point}
+  {rank=same; pinch1; point1}
+  {rank=same; p_short; p_ok}
+  {rank=same; ask; can}
+  {rank=same; s_more; s_less; s_undo; s_reset; s_keep; s_other; s_done}
+  {rank=same; r_more; r_less; r_undo; r_reset; r_keep; done}
+}

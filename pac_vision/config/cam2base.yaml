@@ -1,0 +1,44 @@
+# 카메라 → base_ref 보정 결과 (calibrate.py가 생성). P_base = R @ P_cam + t, 단위 m.
+# 현장 전용 값이라 git에 올리지 않는다. 형식은 cam2base.example.yaml 참고.
+created: '2026-10-29T20:12:20'
+depth_mode: plane
+R:
+- [-0.41644998798958593, -0.4926211918274682, 0.7641294189245422]
+- [-0.9091434992110284, 0.22079836109461815, -0.3531376241357711]
+- [0.005244553918162235, -0.8417674531011611, -0.5398148289495057]
+t: [-0.7708291720125555, 0.4641531673007483, 0.6354651479662495]
+checks:
+  base_error: {ok: true, value: 0.003546637704213808, limit: 0.01, blocking: true}
+  a4_sides: {ok: true, value: 0.0024702274162055893, limit: 0.005197922535494142,
+    blocking: true}
+  reflection: {ok: true, value: 0.6354651479662495, limit: 0.0, blocking: true}
+  a4_size: {ok: true, value: 53.57110324047991, limit: 40.0, blocking: false}
+  desk_z: {ok: true, value: 0.006328272108314137, limit: 0.01, blocking: false}
+passed: true
+rms_m: 0.0017081474304403539
+holdout_m: 0.003546637704213808
+sides_m: [0.1045203866467794, 0.186590766591444, 0.10636046071001017, 0.1874702274162056]
+plane_rms_m: 0.001383774675957749
+tilt_deg: 57.32896565896082
+desk_z:
+  near: {median: -9.278707753329618e-05, p5: -0.0022082508945993396, p95: 0.002670048062331751,
+    n: 9964, raised: 0.017262143717382578, n_outside: 1541}
+  far: {median: 0.00017111390880653055, p5: -0.0022108822506917924, p95: 0.006328272108314137,
+    n: 9957, raised: 0.041679220648789796, n_outside: 746}
+session_file: data/sessions/2026-10-29_2012.npz
+camera:
+  rotate_180: true
+  openni: {redist: $PINCH_KHU_ROOT/vendor/ros2_astra_camera/astra_camera/openni2_redist/x64}
+  rgb: {name_match: Astra, width: 640, height: 480}
+  depth: {width: 640, height: 480, fx: 570.0, fy: 570.0, cx: 320.0, cy: 240.0, z_offset_m: -0.021,
+    flip: true, min_m: 0.6, max_m: 4.0}
+  rgb_to_depth:
+    sx: 1.0
+    sy: 1.0
+    z_ref_m: 1.0
+    dx: {a: -8.270064, b: -0.012502, c: 0.01603, d: -14.56444}
+    dy: {a: -8.475, b: 0.0, c: 0.0, d: -0.0}
+  ui: {font: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc, font_size: 16,
+    axis_len_m: 0.1}
+camera_identity: {device: 2, name: 'Astra Pro FHD Camera: Astra Pro', by_path: 'pci-0000:00:14.0-usb-0:7.1.2:1.0-video-index0',
+  by_id: usb-Sonix_Technology_Co.__Ltd._Astra_Pro_FHD_Camera_SN0001-video-index0}

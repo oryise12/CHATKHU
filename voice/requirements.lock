@@ -1,0 +1,14 @@
+# 음성(쿠옹이) 가상환경 .venv-voice에 설치해 시험한 정확한 버전 (2026-10-28, Python 3.12.3). setup.sh가 이 파일로 설치한다.
+# 직접 고를 때의 최소 조건은 requirements.txt.
+cffi==2.1.1
+iniconfig==2.3.1
+numpy==2.5.4
+packaging==26.3
+pluggy==1.7.0
+pycparser==3.12
+Pygments==2.21.0
+pytest==9.1.1
+PyYAML==6.0.3
+sounddevice==0.5.6
+soxr==1.1.0
+websockets==17.3

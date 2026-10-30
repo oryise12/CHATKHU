@@ -1,0 +1,62 @@
+{
+  "frame": "robot_base",
+  "base": [
+    0.0,
+    0.0,
+    0.12
+  ],
+  "target": [
+    0.6,
+    0.0,
+    0.12
+  ],
+  "initial_duration": 3.0,
+  "sample_dt": 0.03,
+  "selection_radius_px": 18.0,
+  "influence_length": 0.22,
+  "drag_limit": 0.15,
+  "total_offset_limit": 0.3,
+  "min_effective_change": 0.001,
+  "max_ee_speed": 0.35,
+  "endpoint_protection": 0.08,
+  "numeric_tolerance": 1e-08,
+  "mouse_depth_scale": 0.015,
+  "bump_height": 0.1,
+  "never_shorten": true,
+  "speed_safety": 1.01,
+  "gate": {
+    "mode": "anisotropic",
+    "radius": 0.18,
+    "radius_xy": 0.22,
+    "radius_z": 0.16,
+    "alpha": 0.5
+  },
+  "camera": {
+    "width": 1000,
+    "height": 700,
+    "fx": 900.0,
+    "fy": 900.0,
+    "position": [
+      0.75,
+      -1.1,
+      0.9
+    ],
+    "look_at": [
+      0.3,
+      0.0,
+      0.16
+    ],
+    "up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "near": 0.01
+  },
+  "colors": {
+    "mode": "fixed",
+    "z_min": -0.15,
+    "z_max": 0.65,
+    "cmap": "viridis"
+  }
+}

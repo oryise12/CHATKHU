@@ -1,0 +1,57 @@
+# 실기 기구 설정 (버전 관리 대상, sha가 세션 로그에 기록됨). 세션 원점(P_ref)은 여기에 저장하지 않는다.
+#
+# null = 아직 측정·확인되지 않음. 프로그램은 null을 0이나 기본값으로 해석하지 않는다.
+# scan / watch(읽기 전용)는 null이 있어도 실행된다. 토크를 켜는 명령은 필요한 값이 있어야 실행된다:
+#   calibrate (= prepare --hold-only, 이동 없음): 모든 관절의 q_ref_deg. sign이 null이면 세션에서 확인 후 저장 가능
+#   prepare / teleop (이동)                     : 모든 sign, q_ref_deg, limit_deg (HOME 경로는 실행 중 SIM 미리보기 + y)
+# 값을 정하는 방법: docs/CALIBRATION_GUIDE.md
+schema: 1
+kind: hardware
+
+bus:
+  # 고정 경로(by-id). 포트가 바뀌었다고 다른 장치를 자동으로 고르지 않는다.
+  port: /dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FTB8HROZ-if00-port0
+  baudrate: 1000000
+  protocol: 2.0
+  model_number: 1030          # XM430-W210
+
+# 서보 설정 기대값. 다르면 prepare를 거부한다(자동으로 고치지 않음). scan/watch는 계속 읽기 전용으로 동작.
+servo_expect:
+  operating_mode: 4           # Extended Position. 다르면 MODE_PREP (아래 허용 시에만, 사용자 확인 후)
+  allow_operating_mode_write: false   # true일 때만 Operating Mode(11) EEPROM 쓰기 허용 (유일한 EEPROM 쓰기)
+  drive_mode: 0               # scan 2026-10-26 15:21: ID1~6 모두 0 (mode 4, Startup 0, Watchdog 0, SRL 2도 실측 일치)
+  startup_configuration: 0    # Startup Torque On = 0, RAM Restore = 0 전제
+  status_return_level: 2
+  bus_watchdog: 0             # 0(비활성)이 아니면 prepare 거부 (이번 구현은 Watchdog을 켜거나 끄지 않음)
+  voltage_v: [11.4, 12.8]     # 12 V 공급, Wizard 12.3 V
+  max_temperature_c: 55
+
+model:
+  viz_mjcf: models/derived/viz_scene.xml
+
+# ID n = Revolute_n, 추가 감속 16:1 (2026-10-26 사용자 확인). 그리퍼는 고정 메시(모터 없음).
+# sign: 2026-10-26 17:00 HOME 시험 뒤 사용자가 6개 관절 모두 눈으로 다시 확인하기로 함 -> null (calibrate에서 확인·저장).
+# limit_deg: **사용자 지정 범위, 실측 아님** (2026-10-28 12:3x 사용자 요청: 시뮬 모델과 같은 ±180°, "보다 자유롭게").
+#            이전 범위(2026-10-26 23:20: 1 ±45, 2 ±90, 3 ±160, 4 ±170, 5 ±170, 6 0~+170)와 그 전 임시 범위는
+#            logs/robot.yaml.before_limits_*. 케이블 감김·간섭은 모델이 모른다: 실측하면 다시 좁힌다.
+joints:
+  - {name: Revolute_1, id: 1, gear_ratio: 16, sign: 1, q_ref_deg: 0.0, limit_deg: [-180, 180]}
+  - {name: Revolute_2, id: 2, gear_ratio: 16, sign: 1, q_ref_deg: 0.0, limit_deg: [-180, 180]}
+  - {name: Revolute_3, id: 3, gear_ratio: 16, sign: 1, q_ref_deg: -90.0, limit_deg: [-180, 180]}
+  - {name: Revolute_4, id: 4, gear_ratio: 16, sign: 1, q_ref_deg: 0.0, limit_deg: [-180, 180]}
+  - {name: Revolute_5, id: 5, gear_ratio: 16, sign: 1, q_ref_deg: 90.0, limit_deg: [-180, 180]}
+  - {name: Revolute_6, id: 6, gear_ratio: 16, sign: 1, q_ref_deg: 0.0, limit_deg: [-180, 180]}
+
+reference:
+  # 2026-10-26 17:05 사용자 결정: 보정 자세 = 위팔 수직, 관절 3 = -90°, 관절 5 = +90°, 나머지 0
+  # (직전의 +90/-90에서 관절 3·5를 각각 180° 돌린 자세). HOME은 아래 home 절 (시뮬 ready의 좌우 반대).
+  note: "위팔 수직, Revolute_3 = -90°, Revolute_5 = +90°, 나머지 0"
+
+home:
+  # 2026-10-26 17:10 사용자 결정: 시뮬 ready의 좌우 반대(모든 관절 각도 부호 반전, 모델 Y 반전) = 보정 자세의 아래팔과
+  # 같은 쪽. 경로 확인은 실행할 때마다 한다: prepare/teleop이 SIM에서 지금 자세 -> HOME 경로를 재생하고, 사용자가 실물
+  # 주변을 확인한 뒤 y를 눌러야 이동한다.
+  # 2026-10-28 사용자 요청: 손끝을 5 cm 낮춤(테이블 기준 z 0.27 -> 0.22 m, J1·J6 고정, J2~J5 다시 풂).
+  # 이전 값 [0.0, -0.641283, -1.312362, 0.899717, 1.570796, 0.139769] (logs/robot.yaml.before_home_lower_20261028_125120)
+  q_rad: [0.0, -0.822469, -1.680318, 0.712947, 1.570796, 0.139769]
+  source: "-1 x (pinch_khu_ws/26_project_manipulator work/pinch-khu-demo mujoco_sim/configs/demo.json ready.q_rad, 2026-10-28 5 cm lower)"

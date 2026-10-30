@@ -1,0 +1,5 @@
+websockets>=13
+pyyaml
+numpy
+sounddevice>=0.5
+soxr>=0.5

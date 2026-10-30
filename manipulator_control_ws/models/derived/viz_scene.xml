@@ -1,0 +1,170 @@
+<mujoco model="manipulator_viz">
+  <compiler angle="radian" meshdir="../upstream_849f2e1/6dof_description/meshes/" />
+  <statistic extent="0.8" center="0 0 0.3" />
+  <visual>
+    <global azimuth="120" elevation="-20" offwidth="1280" offheight="960" />
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.6 0.6 0.6" specular="0 0 0" />
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072" />
+    <texture type="2d" name="grid" builtin="checker" mark="edge" rgb1="0.55 0.55 0.55" rgb2="0.5 0.5 0.5" markrgb="0.4 0.4 0.4" width="300" height="300" />
+    <material name="decor_floor" texture="grid" texrepeat="8 8" texuniform="true" rgba="1 1 1 0.6" />
+    <mesh name="base_link" content_type="model/stl" file="base_link.stl" scale="0.001 0.001 0.001" />
+    <mesh name="r_a_1" content_type="model/stl" file="r_a_1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="link_1" content_type="model/stl" file="link_1_engraved.stl" scale="0.001 0.001 0.001" />
+    <mesh name="link_1_engraving" content_type="model/stl" file="link_1_engraving.stl" scale="0.001 0.001 0.001" />
+    <mesh name="link_1_ring" content_type="model/stl" file="link_1_ring.stl" scale="0.001 0.001 0.001" />
+    <mesh name="link__1__1" content_type="model/stl" file="link__1__1_engraved.stl" scale="0.001 0.001 0.001" />
+    <mesh name="link__1__1_engraving" content_type="model/stl" file="link__1__1_engraving.stl" scale="0.001 0.001 0.001" />
+    <mesh name="link__1__1_ring" content_type="model/stl" file="link__1__1_ring.stl" scale="0.001 0.001 0.001" />
+    <mesh name="r_a__1__1" content_type="model/stl" file="r_a__1__1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="r_a__2__1" content_type="model/stl" file="r_a__2__1.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gripper" file="gripper.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gripper_body" file="gripper_body.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gripper_fingers" file="gripper_fingers.stl" scale="0.001 0.001 0.001" />
+  </asset>
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true" />
+    <geom name="decor_floor" type="plane" size="1 1 0.05" material="decor_floor" contype="0" conaffinity="0" group="2" />
+    <geom pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="base_link" name="base_visual" />
+    <geom pos="0 0 0" quat="1 0 0 0" type="mesh" rgba="0.72 0.74 0.78 1" mesh="base_link" name="base_collision" group="3" />
+    <body name="r_a_1" pos="0 0.002984 0.043554">
+      <inertial pos="0.0104256 0.000992663 0.0386486" quat="0.93748 -0.0205562 0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+      <joint name="Revolute_1" range="-3.14159 3.14159" actuatorfrcrange="-10 10" />
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="r_a_1" />
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" rgba="0.72 0.74 0.78 1" mesh="r_a_1" group="3" />
+      <body name="link_1" pos="0.042 0 0.0505">
+        <inertial pos="0.0362299 1.34955e-05 0.100939" quat="0.707082 -0.00594976 -0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243" />
+        <joint name="Revolute_2" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="link_1" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="link_1_engraving" />
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="link_1_ring" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" rgba="0.72 0.74 0.78 1" mesh="link_1" group="3" />
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" rgba="0.72 0.74 0.78 1" mesh="link_1_ring" group="3" />
+        <body name="link__1__1" pos="-0.002 0 0.2">
+          <inertial pos="-0.0362299 -1.32746e-05 0.100939" quat="0.707082 0.00594976 0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243" />
+          <joint name="Revolute_3" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0" />
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="link__1__1" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="link__1__1_engraving" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="link__1__1_ring" />
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" rgba="0.72 0.74 0.78 1" mesh="link__1__1" group="3" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" rgba="0.72 0.74 0.78 1" mesh="link__1__1_ring" group="3" />
+          <body name="r_a__1__1" pos="0.002 0 0.2">
+            <inertial pos="0.0386489 -0.000992442 0.0104253" quat="0.0125806 0.417234 -0.0164903 0.908562" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+            <joint name="Revolute_4" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0" />
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="r_a__1__1" />
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" rgba="0.72 0.74 0.78 1" mesh="r_a__1__1" group="3" />
+            <body name="r_a__2__1" pos="0.0505 0 0.042">
+              <inertial pos="-0.0104256 -0.000992442 0.0386486" quat="0.93748 0.0205562 -0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+              <joint name="Revolute_5" range="-3.14159 3.14159" actuatorfrcrange="-10 10" />
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="r_a__2__1" />
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" rgba="0.72 0.74 0.78 1" mesh="r_a__2__1" group="3" />
+              <body name="housing_1" pos="-0.042 0 0.0505">
+                <joint name="Revolute_6" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0" />
+                <geom name="gripper_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="gripper_body" />
+                <geom name="gripper_fingers_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.72 0.74 0.78 1" density="0" mesh="gripper_fingers" />
+                <geom name="gripper_collision" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" group="3" rgba="0.72 0.74 0.78 1" mass="0.22" mesh="gripper" />
+                <site name="tcp" size="0.004" pos="-0.11895 0.001777 -0.00025" quat="0.5 -0.5 -0.5 0.5" group="2" rgba="1 0.5 0 1" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="cmd_r_a_1" pos="0 0.002984 0.043554">
+      <inertial pos="0.0104256 0.000992663 0.0386486" quat="0.93748 -0.0205562 0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+      <joint name="cmd_Revolute_1" range="-3.14159 3.14159" actuatorfrcrange="-10 10" />
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="r_a_1" />
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="r_a_1" contype="0" conaffinity="0" group="5" />
+      <body name="cmd_link_1" pos="0.042 0 0.0505">
+        <inertial pos="0.0362299 1.34955e-05 0.100939" quat="0.707082 -0.00594976 -0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243" />
+        <joint name="cmd_Revolute_2" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="link_1" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="link_1_engraving" />
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="link_1_ring" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="link_1" contype="0" conaffinity="0" group="5" />
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" rgba="0 0 0 0" mesh="link_1_ring" contype="0" conaffinity="0" group="5" />
+        <body name="cmd_link__1__1" pos="-0.002 0 0.2">
+          <inertial pos="-0.0362299 -1.32746e-05 0.100939" quat="0.707082 0.00594976 0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243" />
+          <joint name="cmd_Revolute_3" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0" />
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="link__1__1" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="link__1__1_engraving" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="link__1__1_ring" />
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="link__1__1" contype="0" conaffinity="0" group="5" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" rgba="0 0 0 0" mesh="link__1__1_ring" contype="0" conaffinity="0" group="5" />
+          <body name="cmd_r_a__1__1" pos="0.002 0 0.2">
+            <inertial pos="0.0386489 -0.000992442 0.0104253" quat="0.0125806 0.417234 -0.0164903 0.908562" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+            <joint name="cmd_Revolute_4" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0" />
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="r_a__1__1" />
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="r_a__1__1" contype="0" conaffinity="0" group="5" />
+            <body name="cmd_r_a__2__1" pos="0.0505 0 0.042">
+              <inertial pos="-0.0104256 -0.000992442 0.0386486" quat="0.93748 0.0205562 -0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+              <joint name="cmd_Revolute_5" range="-3.14159 3.14159" actuatorfrcrange="-10 10" />
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="r_a__2__1" />
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="r_a__2__1" contype="0" conaffinity="0" group="5" />
+              <body name="cmd_housing_1" pos="-0.042 0 0.0505">
+                <joint name="cmd_Revolute_6" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0" />
+                <geom name="cmd_gripper_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="gripper_body" />
+                <geom name="cmd_gripper_fingers_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="2" rgba="1.0 0.55 0.1 0.35" density="0" mesh="gripper_fingers" />
+                <geom name="cmd_gripper_collision" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" group="5" rgba="0 0 0 0" mass="0.22" mesh="gripper" contype="0" conaffinity="0" />
+                <site name="cmd_tcp" size="0.004" pos="-0.11895 0.001777 -0.00025" quat="0.5 -0.5 -0.5 0.5" group="2" rgba="1.0 0.55 0.1 0.35" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="tgt_r_a_1" pos="0 0.002984 0.043554">
+      <inertial pos="0.0104256 0.000992663 0.0386486" quat="0.93748 -0.0205562 0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+      <joint name="tgt_Revolute_1" range="-3.14159 3.14159" actuatorfrcrange="-10 10" />
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="r_a_1" />
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="r_a_1" contype="0" conaffinity="0" group="5" />
+      <body name="tgt_link_1" pos="0.042 0 0.0505">
+        <inertial pos="0.0362299 1.34955e-05 0.100939" quat="0.707082 -0.00594976 -0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243" />
+        <joint name="tgt_Revolute_2" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="link_1" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="link_1_engraving" />
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="link_1_ring" />
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="link_1" contype="0" conaffinity="0" group="5" />
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" rgba="0 0 0 0" mesh="link_1_ring" contype="0" conaffinity="0" group="5" />
+        <body name="tgt_link__1__1" pos="-0.002 0 0.2">
+          <inertial pos="-0.0362299 -1.32746e-05 0.100939" quat="0.707082 0.00594976 0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243" />
+          <joint name="tgt_Revolute_3" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0" />
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="link__1__1" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="link__1__1_engraving" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="link__1__1_ring" />
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="link__1__1" contype="0" conaffinity="0" group="5" />
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" rgba="0 0 0 0" mesh="link__1__1_ring" contype="0" conaffinity="0" group="5" />
+          <body name="tgt_r_a__1__1" pos="0.002 0 0.2">
+            <inertial pos="0.0386489 -0.000992442 0.0104253" quat="0.0125806 0.417234 -0.0164903 0.908562" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+            <joint name="tgt_Revolute_4" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0" />
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="r_a__1__1" />
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="r_a__1__1" contype="0" conaffinity="0" group="5" />
+            <body name="tgt_r_a__2__1" pos="0.0505 0 0.042">
+              <inertial pos="-0.0104256 -0.000992442 0.0386486" quat="0.93748 0.0205562 -0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178" />
+              <joint name="tgt_Revolute_5" range="-3.14159 3.14159" actuatorfrcrange="-10 10" />
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="r_a__2__1" />
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" rgba="0 0 0 0" mesh="r_a__2__1" contype="0" conaffinity="0" group="5" />
+              <body name="tgt_housing_1" pos="-0.042 0 0.0505">
+                <joint name="tgt_Revolute_6" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0" />
+                <geom name="tgt_gripper_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="gripper_body" />
+                <geom name="tgt_gripper_fingers_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.85 0.35 0.3" density="0" mesh="gripper_fingers" />
+                <geom name="tgt_gripper_collision" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" group="5" rgba="0 0 0 0" mass="0.22" mesh="gripper" contype="0" conaffinity="0" />
+                <site name="tgt_tcp" size="0.004" pos="-0.11895 0.001777 -0.00025" quat="0.5 -0.5 -0.5 0.5" group="2" rgba="0.2 0.85 0.35 0.3" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="ee_target" mocap="true" pos="0 0 0.6">
+      <geom name="ee_target_ball" type="sphere" size="0.012" rgba="1 0.85 0.1 0.7" contype="0" conaffinity="0" group="2" />
+      <geom name="ee_target_x" type="capsule" size="0.004" fromto="0 0 0 0.05 0 0" rgba="1 0.2 0.2 0.9" contype="0" conaffinity="0" group="2" />
+      <geom name="ee_target_y" type="capsule" size="0.004" fromto="0 0 0 0 0.05 0" rgba="0.2 0.9 0.2 0.9" contype="0" conaffinity="0" group="2" />
+      <geom name="ee_target_z" type="capsule" size="0.004" fromto="0 0 0 0 0 0.05" rgba="0.3 0.4 1 0.9" contype="0" conaffinity="0" group="2" />
+    </body>
+  </worldbody>
+  <contact>
+    <exclude body1="world" body2="r_a_1" />
+  </contact>
+</mujoco>

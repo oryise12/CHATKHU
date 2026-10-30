@@ -1,0 +1,13 @@
+# rotate_180 변환됨 (2026-10-26 15:16, 원본: astra_unit1.yaml, tools/rotate_pose_180.py)
+camera:
+  rgb_to_depth:
+    dx:
+      a: -8.270064
+      b: -0.012502
+      c: 0.01603
+      d: -14.56444
+    dy:
+      a: -8.475
+      b: 0.0
+      c: 0.0
+      d: -0.0

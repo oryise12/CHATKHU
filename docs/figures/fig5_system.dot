@@ -1,0 +1,62 @@
+digraph G {
+  graph [fontname="Noto Sans CJK KR", bgcolor="white", rankdir=TB, nodesep=0.5, ranksep=0.45, pad=0.35, newrank=true, splines=ortho];
+  node [fontname="Noto Sans CJK KR Bold", fontsize=17, shape=box, style="rounded,filled", penwidth=1.6, margin="0.30,0.14", fontcolor="#1a1a1a"];
+  edge [color="#777777", arrowsize=0.8, penwidth=1.4, fontname="Noto Sans CJK KR", fontsize=14];
+
+  graph [splines=spline];
+  labelloc=t; label=<<FONT POINT-SIZE="30"><B>그림 5. 시스템 구성도</B></FONT><BR/> >;
+  node [fontname="Noto Sans CJK KR", fontsize=17];
+
+  user [label=<<B>사용자</B><BR/>손 · 말>, shape=box, style="rounded,filled", fillcolor="#E6F4EE", color="#2E7D5B"];
+  cam  [label=<<B>뎁스 카메라</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">Orbbec Astra Pro (컬러 + 깊이)<BR/>pac_vision · astra_depth.py</FONT>>, fillcolor="#F5F5F5", color="#757575"];
+  mic  [label=<<B>마이크 · 스피커</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">voice/audio_io.py</FONT>>, fillcolor="#F5F5F5", color="#757575"];
+
+  hand [label=<<B>손 인식 (손가락 21개 점)</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">MediaPipe Hands · pinch_sim/hand_input.py</FONT>>, style="rounded,filled", fillcolor="#EEEBFB", color="#5B4BB7"];
+
+  hand3d [label=<<B>손가락 3차원 위치 · 핀치 판정</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">깊이 + 카메라 보정 · hand_depth.py · cam2base.py</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+  mark [label=<<B>마커 읽기</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">6·7·8번 = S·B·C 지점 · stations.py<BR/>5번 = 카메라 밀림 감시 · pac_vision/markers.py</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+  llm [label=<<B>쿠옹이: ChatKHU 실시간 음성 모델</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">gemini-3.8-live · voice/session.py · gateway.py<BR/>지시문 prompts/system_v8.md</FONT>>, style="rounded,filled", fillcolor="#EEEBFB", color="#5B4BB7"];
+
+  tools [label=<<B>말 → 함수 16개</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">어디 · 방향 · 거리(2/5/8 cm) · 되묻기<BR/>voice/tools.py · sim_link.py</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+  gw [label=<<B>음성 ↔ 시뮬 연결</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">pinch_sim/voice_gateway.py</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+  path [label=<<B>경로 만들기 · 수정</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">직선 경로 · 도착 후 5 cm 내려가기 · paths.py<BR/>보정장 변형(양 끝 고정) · editing.py · pac_path_editor</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+  valid [label=<<B>검증 12개 항목 + 시뮬레이션</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">도달 · 관절 범위 · 특이점 · 충돌 · 속도 · 토크 …<BR/>MuJoCo · validation.py</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+  ok [label=<<B>사용자 승인</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">&quot;검증 후 이동할까요?&quot; → &quot;응&quot;</FONT>>, style="rounded,filled", fillcolor="#E6F4EE", color="#2E7D5B"];
+
+  arm_ok [label=<<B>무장 확인 (처음 한 번)</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">터미널 y 또는 작은 &quot;실물 무장&quot; 창 · supervisor.py · panel.py</FONT>>, style="rounded,filled", fillcolor="#E6F4EE", color="#2E7D5B"];
+
+  recheck [label=<<B>로봇 쪽 재검사</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">가동 범위 · 제동점 · 속도 · 가속 · 모델 충돌<BR/>manipulator_control/pinch_traj.py</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+  arm [label=<<B>실물 로봇팔 이동</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">같은 궤적 · 같은 시간표 · XM430 × 6, U2D2<BR/>supervisor.py · arm_link.py</FONT>>, style="rounded,filled", fillcolor="#FDF0E6", color="#C0661A"];
+
+  ui [label=<<B>웹 화면</B><BR/><FONT POINT-SIZE="13" COLOR="#666666">카메라 영상 위 경로 · 3차원 패널 · 대화 · 추천 말<BR/>webui.py · sim_view.py</FONT>>, style="rounded,filled", fillcolor="#E8F1FB", color="#2B5797"];
+
+
+  user -> cam [label=" 손"]; user -> mic [label=" 말"];
+  cam -> hand -> hand3d -> path;
+  cam -> mark -> path;
+  mic -> llm -> tools -> gw -> path;
+  path -> valid -> ok -> recheck -> arm;
+  arm_ok -> recheck [style=dashed];
+  llm -> mic [style=dashed, constraint=false, label=" 음성 답"];
+  {path valid arm} -> ui [style=dashed, color="#666666"];
+  ui -> user [style=dashed, color="#666666", constraint=false, label=" 화면"];
+
+  subgraph cluster_legend {
+    label=<<B>색</B>>; fontsize=16; style="rounded"; color="#BDBDBD";
+    l1 [label="AI (학습된 모델)", fillcolor="#EEEBFB", color="#5B4BB7", style="rounded,filled", fontsize=14];
+    l2 [label="알고리즘 (정해진 규칙)", fillcolor="#E8F1FB", color="#2B5797", style="rounded,filled", fontsize=14];
+    l3 [label="사람의 확인", fillcolor="#E6F4EE", color="#2E7D5B", style="rounded,filled", fontsize=14];
+    l4 [label="실물 로봇", fillcolor="#FDF0E6", color="#C0661A", style="rounded,filled", fontsize=14];
+    {rank=same; l1; l2; l3; l4}
+  }
+  {rank=same; hand; mark; llm}
+  {rank=same; ok; arm_ok}
+  {rank=same; arm; ui}
+}

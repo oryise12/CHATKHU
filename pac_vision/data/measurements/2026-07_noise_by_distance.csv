@@ -1,0 +1,4 @@
+distance_m,sigma_mm,valid_frames,note
+0.8-1.5,0.5-1.0,30,30-frame std (summary only)
+2.0,23.5,28,
+3.5,,14,unstable

@@ -1,0 +1,34 @@
+# 가상환경 (setup.sh가 각 lock 파일로 만든다)
+.venv/
+.venv-voice/
+# 외부 드라이버 (setup.sh가 고정 커밋으로 받는다: Orbbec ros2_astra_camera의 OpenNI2 redist)
+vendor/
+.pytest_cache/
+# 파이썬 캐시
+__pycache__/
+*.pyc
+# 실행 기록·저장 결과 (대화 내용이 들어 있으므로 올리지 않는다)
+voice/logs/
+mujoco_sim/logs/
+mujoco_sim/saved_paths/
+mujoco_sim/.cache/
+mujoco_sim/.tmp/
+# 비밀 설정. ChatKHU 키만 예외로 voice/chatkhu_key.env에 올린다 (2026-10-28 저장소 주인 결정, 비공개 저장소)
+.env
+.env.*
+!.env.example
+*.key
+# 녹음·로그 (사용자 목소리·대화가 들어 있을 수 있다)
+*.wav
+*.log
+MUJOCO_LOG.TXT
+
+# secrets and local files
+*.env
+.env*
+*.bak
+.venv*/
+logs/
+.tmp/
+.claude/
+__pycache__/

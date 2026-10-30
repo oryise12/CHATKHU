@@ -1,0 +1,22 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="129.6" height="129.6" viewBox="0 0 129.6 129.6" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Button - back">
+<g id="Ellipse 1" filter="url(#filter0_d_0_56)">
+<circle cx="64.8" cy="50.4" r="36" fill="white"/>
+</g>
+<g id="eva:arrow-ios-back-outline">
+<path id="Vector" d="M61.506 62.9999C61.7749 63.0008 62.0406 62.9415 62.2835 62.8262C62.5265 62.711 62.7406 62.5427 62.91 62.3339L71.604 51.5339C71.8687 51.2118 72.0135 50.8078 72.0135 50.3909C72.0135 49.974 71.8687 49.57 71.604 49.2479L62.604 38.4479C62.2984 38.0803 61.8594 37.8491 61.3834 37.8053C60.9075 37.7614 60.4336 37.9084 60.066 38.2139C59.6984 38.5194 59.4672 38.9585 59.4233 39.4344C59.3795 39.9104 59.5264 40.3843 59.832 40.7519L67.878 50.3999L60.102 60.0479C59.8819 60.3121 59.742 60.6338 59.6991 60.975C59.6561 61.3162 59.7117 61.6626 59.8594 61.9731C60.0071 62.2837 60.2407 62.5454 60.5325 62.7274C60.8243 62.9093 61.1621 63.0039 61.506 62.9999Z" fill="#707070"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_0_56" x="-6.27979e-07" y="-1.28772e-07" width="129.6" height="129.6" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="14.4"/>
+<feGaussianBlur stdDeviation="14.4"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_56"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_56" result="shape"/>
+</filter>
+</defs>
+</svg>

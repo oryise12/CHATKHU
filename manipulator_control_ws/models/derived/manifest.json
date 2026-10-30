@@ -1,0 +1,241 @@
+{
+ "built": "2026-10-28T12:56:28+09:00",
+ "tool": "tools/build_viz_model.py",
+ "sources": {
+  "models/upstream_849f2e1/mujoco_sim/models/generated/pinch_scene.xml": "7ea30c3d53aadcba0b449d49f2cc8a758f9f0646d23bf24646c0ee22e1be0a6f",
+  "models/upstream_849f2e1/6dof_description/mujoco/6dof_control.xml": "8fc24243633a3401c68132475efa760c0bf2a77d382482e6df30f4b5e886f379",
+  "models/upstream_849f2e1/6dof_description/mujoco/6dof_mj.urdf": "d9b81295c1626f77a008e5990cb0506b682d0fd2e82f2187c93a76fe255cc81a",
+  "models/upstream_849f2e1/mujoco_sim/configs/demo.json": "ade0facdd4b8ce0608516fee37550d4ab4c16d5173c3fc3f7ae2347cc82de731"
+ },
+ "output": "models/derived/viz_scene.xml",
+ "output_sha256": "5df00b0b5f57a6579264881d533cb2e27d50e17b392ba202a11906c947a3f498",
+ "mujoco": "3.15.0",
+ "checks": {
+  "urdf": {
+   "files": [
+    "6dof_description/urdf/6dof.urdf",
+    "6dof_description/urdf/6dof.xacro",
+    "6dof_description/urdf/6dof_gripper.urdf",
+    "6dof_description/urdf/6dof_gripper.xacro",
+    "6dof_description/mujoco/6dof_mj.urdf"
+   ],
+   "joints": {
+    "Revolute_1": {
+     "type": "revolute",
+     "parent": "base_link",
+     "child": "r_a_1",
+     "xyz": [
+      0.0,
+      0.002984,
+      0.043554
+     ],
+     "rpy": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "limit": {
+      "lower": -3.14159,
+      "upper": 3.14159,
+      "velocity": 3.0,
+      "effort": 10.0
+     },
+     "mimic": false
+    },
+    "Revolute_2": {
+     "type": "revolute",
+     "parent": "r_a_1",
+     "child": "link_1",
+     "xyz": [
+      0.042,
+      0.0,
+      0.0505
+     ],
+     "rpy": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "axis": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "limit": {
+      "lower": -3.14159,
+      "upper": 3.14159,
+      "velocity": 3.0,
+      "effort": 10.0
+     },
+     "mimic": false
+    },
+    "Revolute_3": {
+     "type": "revolute",
+     "parent": "link_1",
+     "child": "link__1__1",
+     "xyz": [
+      -0.002,
+      0.0,
+      0.2
+     ],
+     "rpy": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "axis": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "limit": {
+      "lower": -3.14159,
+      "upper": 3.14159,
+      "velocity": 3.0,
+      "effort": 10.0
+     },
+     "mimic": false
+    },
+    "Revolute_4": {
+     "type": "revolute",
+     "parent": "link__1__1",
+     "child": "r_a__1__1",
+     "xyz": [
+      0.002,
+      0.0,
+      0.2
+     ],
+     "rpy": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "axis": [
+      1.0,
+      -0.0,
+      -0.0
+     ],
+     "limit": {
+      "lower": -3.14159,
+      "upper": 3.14159,
+      "velocity": 3.0,
+      "effort": 10.0
+     },
+     "mimic": false
+    },
+    "Revolute_5": {
+     "type": "revolute",
+     "parent": "r_a__1__1",
+     "child": "r_a__2__1",
+     "xyz": [
+      0.0505,
+      0.0,
+      0.042
+     ],
+     "rpy": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "axis": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "limit": {
+      "lower": -3.14159,
+      "upper": 3.14159,
+      "velocity": 3.0,
+      "effort": 10.0
+     },
+     "mimic": false
+    },
+    "Revolute_6": {
+     "type": "revolute",
+     "parent": "r_a__2__1",
+     "child": "housing_1",
+     "xyz": [
+      -0.042,
+      0.0,
+      0.0505
+     ],
+     "rpy": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "axis": [
+      -1.0,
+      0.0,
+      -0.0
+     ],
+     "limit": {
+      "lower": -3.14159,
+      "upper": 3.14159,
+      "velocity": 3.0,
+      "effort": 10.0
+     },
+     "mimic": false
+    }
+   },
+   "differences": []
+  },
+  "mount_height_m": 0.02,
+  "frames_vs_6dof_control.xml": "identical",
+  "frames_vs_6dof_mj.urdf": "identical",
+  "frames_vs_pinch_scene.xml": "identical",
+  "frames_cmd_ghost": "identical",
+  "frames_tgt_ghost": "identical",
+  "qpos_addresses": {
+   "measured": {
+    "Revolute_1": 0,
+    "Revolute_2": 1,
+    "Revolute_3": 2,
+    "Revolute_4": 3,
+    "Revolute_5": 4,
+    "Revolute_6": 5
+   },
+   "cmd": {
+    "Revolute_1": 6,
+    "Revolute_2": 7,
+    "Revolute_3": 8,
+    "Revolute_4": 9,
+    "Revolute_5": 10,
+    "Revolute_6": 11
+   },
+   "target": {
+    "Revolute_1": 12,
+    "Revolute_2": 13,
+    "Revolute_3": 14,
+    "Revolute_4": 15,
+    "Revolute_5": 16,
+    "Revolute_6": 17
+   }
+  },
+  "tcp_ready_m": {
+   "viz": [
+    0.094294,
+    0.100206,
+    0.2
+   ],
+   "pinch_scene": [
+    0.094294,
+    0.100206,
+    0.2
+   ],
+   "demo_json": [
+    0.094294,
+    0.100206,
+    0.2
+   ]
+  },
+  "path_check_q0": "clean",
+  "path_check_ready": "clean",
+  "errors": []
+ }
+}

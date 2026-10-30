@@ -1,0 +1,95 @@
+# 속도·가속·판정 기준 (실기·가상 공통). 내부 단위: 각도 deg/rad는 키 이름의 접미사를 따른다.
+# 서보 raw 단위 (추가 16:1 뒤 관절 기준): PV 1 = 0.229 rpm = 0.085875 deg/s, PA 1 = 214.577 rev/min^2 = 1.3411 deg/s^2
+schema: 1
+
+loop:
+  read_hz: 20                 # 초기 목표. 실제 주기는 scan --timing으로 측정해 기록하고 stale 기준에 반영
+  slow_read_hz: 2             # 설정·토크·HW 오류·Watchdog 블록
+  stale_after_s: 0.25         # 마지막 완전한 읽기 이후 이 시간이 지나면 STATE를 stale로 표시
+  comm_fault_after_s: 0.5     # 이 시간 동안 완전한 읽기가 없으면 COMM LOST (보정 무효)
+  latency_allowance_s: 0.1    # 정지 목표 계산 시 쓰기 지연 여유
+
+limits:
+  v_cap_deg_s: 22.5           # 설계 상한 = 모터 출력축 60 rpm
+  pv_raw_max: 262             # 60 rpm 이하인 최대 raw (306 = 70.07 rpm은 쓰지 않음)
+
+home:
+  speed_deg_s: 22.5           # 관절 속도 상한 = 모터 60 rpm (2026-10-26 사용자 지정). 가장 많이 도는 관절이 이 값, 나머지는 같은 시간에 도착하도록 비례
+  accel_deg_s2: 5.0           # 최초 시험 상한 -> PA <= 3 (= 4.02 deg/s^2). 10 deg/s^2는 후속 튜닝 후보
+  countdown_s: 3.0            # 토크 ON 확인 뒤 "손을 떼세요" 안내 시간 (s/space로 취소)
+  sync_warn_deg: 2.0          # 양자화에 따른 공동 궤적 대비 편차 경고 (FAULT 아님)
+  tracking_error_deg: 2.0     # |Present - Position Trajectory| 초과 또는 Following Error 비트 -> 중단
+  predicted_error_deg: 3.0    # |Present - 전송 프로파일 예측| 초과 -> 중단
+  envelope_margin_deg: 1.0    # 이동 구간 [q0, q_home] 밖으로 이 이상 나가면 중단
+  wrong_direction_deg: 0.5
+  overspeed_factor: 1.15      # |v| <= factor * 계획 속도 + 0.5 deg/s
+  timeout_factor: 1.5         # 제한 시간 = factor * 예측 도착 + margin
+  timeout_margin_s: 3.0
+
+calibration:
+  samples: 20                 # 연속 완전한 샘플 수 (20 Hz에서 1 s)
+  max_spread_counts: 8        # 관절별 max-min (8 count = 0.044 deg). 손으로 받친 상태 기준, 실측 후 조정
+  max_velocity_raw: 2         # |Present Velocity| (2 = 0.17 deg/s 관절)
+  sign_detect_counts: 546     # 방향 확인: 엔코더가 이만큼(관절 3°) 움직이면 그 방향을 + 로 판단 (베이스는 손으로 돌리기 무거움)
+  max_retries: 3
+
+hold:
+  profile_velocity_raw: 29    # 토크 ON 순간 따라잡기 상한 (2.49 deg/s)
+  profile_acceleration_raw: 3 # (4.02 deg/s^2)
+  verify_s: 0.6
+  max_jump_counts: 91         # 0.5 deg: 토크 ON 전후 위치 연속성
+  max_error_counts: 36        # 0.2 deg: 확인 끝의 |P - Goal|
+
+ready:
+  tolerance_deg: 0.2          # 엔코더 기준 도착 (마킹 오차·백래시는 볼 수 없음)
+  dwell_s: 1.0
+  still_spread_counts: 8
+  drift_deg: 0.5              # READY/HOLDING 중 이 이상 벗어나면 FAULT
+
+teleop:
+  speed_deg_s: 22.5           # 실시간 따라가기 관절 속도 상한 = 모터 60 rpm (가장 많이 도는 관절 기준, 나머지 비례)
+  accel_deg_s2: 10.0
+  send_hz: 10                 # 목표 갱신 최대 빈도
+  deadband_deg: 0.05          # IK 해가 이보다 적게 바뀌면 보내지 않음
+  step_m: 0.01                # 터미널 키 한 번: 1 cm (조작 패널은 자체 단계 선택)
+  step_deg: 5.0               #                 5 deg
+  ik_pos_tol_m: 0.0005
+  ik_rot_tol_deg: 0.3
+  ik_max_iters: 100
+  max_jump_deg: 30.0          # 명령은 실물보다 최대 이만큼만 앞서게 보냄 (멀리 끈 목표는 이 범위로 쫓아감)
+  path_check_step_deg: 2.0    # 현재 자세 -> IK 해 관절 경로의 모델 검사 간격
+
+stop:
+  accel_max_deg_s2: 15.0      # 제동 거리가 범위를 넘을 때 쓰는 더 강한 감속 상한
+  settle_s: 0.3               # 정지 확인: |v| <= 1 raw, Moving = 0, Profile Ongoing = 0 유지 시간
+  timeout_margin_s: 2.0
+
+pinch:
+  # 시뮬(pinch_sim --real-arm)이 검증한 관절 궤적을 실물이 따라감. PC가 궤적을 소유하고(PLAN §7.5), 서보 프로파일은
+  # 다음 lead_s만 채운다: Goal = 그 구간에서 관절이 가장 멀리 가는 값, PV = 지금 필요한 속도 + 작은 위치 보정, PA 고정.
+  # lead_s >= 2 / loop.read_hz + v_cap / (2 a): 목표가 제동 거리 + 읽기 2번 누락만큼 늘 앞에 있다 (시작할 때 확인).
+  # 통신이 끊기면(Watchdog 0) 팔은 마지막 목표(최대 lead_s 앞)까지 가서 스스로 멈춘다.
+  lead_s: 0.25
+  profile_acceleration_raw: 75   # 100.6 deg/s^2 (관절)
+  feedback_gain_per_s: 2.0       # 서보 내부 목표가 q(t)에서 밀린 만큼 속도 보정 (K * 오차)
+  feedback_max_deg_s: 2.0
+  end_pv_min_raw: 12             # 마지막 lead_s 동안 PV 하한 (1.03 deg/s): 끝까지 도착하게
+  # 받는 궤적의 조건 (시뮬에도 hello로 보냄: 시뮬 검증이 이보다 느슨하면 연결 거부)
+  limit_margin_deg: 2.5          # 모든 표본이 [하한 + 2.5, 상한 - 2.5] 안 (시뮬 joint_margin 0.05 rad = 2.86 이하)
+  qdd_max_deg_s2: 70.0           # 시뮬 real_arm 프로필 1.2 rad/s^2 = 68.8
+  dt_range_s: [0.002, 0.02]
+  max_duration_s: 30.0
+  start_tol_deg: 0.35            # 궤적 시작 = 실물 측정 자세
+  check_step_deg: 0.5            # 모델 검사 간격 (관절 이동량)
+  check_timeout_s: 3.0
+  # 실행 중 감시 (첫 실기 시험에서 잰 분포로 조정)
+  following_error_deg: 2.0       # |측정 - 서보 내부 목표| 또는 Following Error 비트 -> 그 축 abort
+  tracking_error_deg: 3.0        # |측정 - q(t)| -> 감속 정지, FAULT TRACKING
+  envelope_margin_deg: 1.0       # 측정이 q([t - envelope_back_s, t + lead]) 범위 +-이 값 밖 -> ENVELOPE
+  envelope_back_s: 0.5
+  arrive_tolerance_deg: 0.2
+  settle_s: 0.3
+  end_timeout_s: 2.0             # 궤적 끝 + 이 시간 안에 도착 확인
+  # 연결
+  ping_timeout_s: 1.0            # 이동·검사 중 시뮬 ping이 이 시간 넘게 없으면 감속 정지 (무장 해제). 대기 중에는 5배
+  state_hz: 20

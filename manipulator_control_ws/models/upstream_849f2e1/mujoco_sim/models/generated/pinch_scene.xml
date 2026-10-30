@@ -1,0 +1,145 @@
+<mujoco model="6dof scene">
+  <compiler angle="radian" meshdir="../../../6dof_description/meshes/"/>
+
+  <option timestep="0.001" integrator="implicitfast"/>
+
+  <size nkey="1"/>
+
+  <statistic extent="0.8" center="0 0 0.3"/>
+
+  <visual>
+    <global azimuth="120" elevation="-20" offwidth="1280" offheight="960"/>
+    <headlight ambient="0.3 0.3 0.3" diffuse="0.6 0.6 0.6" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+  </visual>
+
+  <default>
+    <joint damping="0.1" frictionloss="0.01"/>
+  </default>
+
+  <asset>
+    <texture type="skybox" colorspace="auto" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" colorspace="auto" name="groundplane" builtin="checker" mark="edge" rgb1="0.5 0.5 0.5" rgb2="0.45 0.45 0.45" markrgb="0.45 0.45 0.45" width="300" height="300"/>
+    <texture type="2d" colorspace="linear" name="desk_wood" file="desk_wood.png"/>
+    <material name="groundplane" texture="groundplane" texrepeat="5 5" texuniform="true" reflectance="0.2"/>
+    <material name="desk_wood" texture="desk_wood" specular="0.05" shininess="0.1" rgba="0.82 0.82 0.82 1"/>
+    <material name="desk_frame" specular="0.1" rgba="0.74 0.6 0.42 1"/>
+    <mesh name="base_link" content_type="model/stl" file="base_link.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="r_a_1" content_type="model/stl" file="r_a_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link_1" content_type="model/stl" file="link_1_engraved.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link_1_engraving" content_type="model/stl" file="link_1_engraving.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link_1_ring" content_type="model/stl" file="link_1_ring.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link__1__1" content_type="model/stl" file="link__1__1_engraved.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link__1__1_engraving" content_type="model/stl" file="link__1__1_engraving.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="link__1__1_ring" content_type="model/stl" file="link__1__1_ring.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="r_a__1__1" content_type="model/stl" file="r_a__1__1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="r_a__2__1" content_type="model/stl" file="r_a__2__1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="gripper" file="gripper.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="gripper_body" file="gripper_body.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="gripper_fingers" file="gripper_fingers.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <geom pos="0 0 0.02" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" density="0" mesh="base_link"/>
+    <geom pos="0 0 0.02" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="base_link"/>
+    <geom name="floor" size="0 0 0.05" pos="0 0 -0.75" type="plane" material="groundplane"/>
+    <camera name="side_cam" quat="0.346191 0.242405 0.519836 0.742403" pos="0.3 0.5 0.3" fovy="60"/>
+    <camera name="side_cam_alt" quat="0.586183 0.383797 0.390839 0.596937" pos="0.55 0.25 0.3" fovy="60"/>
+    <light pos="0 0 1.5" type="directional"/>
+    <body name="r_a_1" pos="0 0.002984 0.063554">
+      <inertial pos="0.0104256 0.000992663 0.0386486" quat="0.93748 -0.0205562 0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178"/>
+      <joint name="Revolute_1" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" density="0" mesh="r_a_1"/>
+      <geom pos="0 -0.002984 -0.041554" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="r_a_1"/>
+      <body name="link_1" pos="0.042 0 0.0505">
+        <inertial pos="0.0362299 1.34955e-05 0.100939" quat="0.707082 -0.00594976 -0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243"/>
+        <joint name="Revolute_2" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0"/>
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" density="0" mesh="link_1"/>
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.02 0.02 0.02 1" density="0" mesh="link_1_engraving"/>
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" contype="0" conaffinity="0" group="1" rgba="1 0.42 0 1" density="0" mesh="link_1_ring"/>
+        <geom pos="-0.04 -0.002984 -0.092054" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="link_1"/>
+        <geom pos="-0.04 -0.002984 -0.092054" type="mesh" rgba="1 0.42 0 1" mesh="link_1_ring"/>
+        <body name="link__1__1" pos="-0.002 0 0.2">
+          <inertial pos="-0.0362299 -1.32746e-05 0.100939" quat="0.707082 0.00594976 0.00594976 0.707082" mass="0.4238" diaginertia="0.003244 0.00322976 0.000555243"/>
+          <joint name="Revolute_3" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0"/>
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" density="0" mesh="link__1__1"/>
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.02 0.02 0.02 1" density="0" mesh="link__1__1_engraving"/>
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" contype="0" conaffinity="0" group="1" rgba="1 0.42 0 1" density="0" mesh="link__1__1_ring"/>
+          <geom pos="-0.04 -0.002984 -0.292054" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="link__1__1"/>
+          <geom pos="-0.04 -0.002984 -0.292054" type="mesh" rgba="1 0.42 0 1" mesh="link__1__1_ring"/>
+          <body name="r_a__1__1" pos="0.002 0 0.2">
+            <inertial pos="0.0386489 -0.000992442 0.0104253" quat="0.0125806 0.417234 -0.0164903 0.908562" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178"/>
+            <joint name="Revolute_4" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="1 0 0"/>
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" density="0" mesh="r_a__1__1"/>
+            <geom pos="-0.04 -0.002984 -0.492054" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="r_a__1__1"/>
+            <body name="r_a__2__1" pos="0.0505 0 0.042">
+              <inertial pos="-0.0104256 -0.000992442 0.0386486" quat="0.93748 0.0205562 -0.347421 0.00276457" mass="0.176938" diaginertia="0.000246766 0.000235056 0.000200178"/>
+              <joint name="Revolute_5" range="-3.14159 3.14159" actuatorfrcrange="-10 10"/>
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" density="0" mesh="r_a__2__1"/>
+              <geom pos="-0.0905 -0.002984 -0.532054" quat="1 0 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="r_a__2__1"/>
+              <body name="housing_1" pos="-0.042 0 0.0505">
+                <joint name="Revolute_6" range="-3.14159 3.14159" actuatorfrcrange="-10 10" axis="-1 0 0"/>
+                <geom name="gripper_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" density="0" mesh="gripper_body"/>
+                <geom name="gripper_fingers_visual" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.02 0.02 0.02 1" density="0" mesh="gripper_fingers"/>
+                <geom name="gripper_collision" pos="0.063911 0.24259 0.114841" quat="0.5 -0.5 -0.5 0.5" type="mesh" group="3" rgba="0.7 0.7 0.7 1" mass="0.22" mesh="gripper"/>
+                <site name="tcp" size="0.004" pos="-0.11895 0.001777 -0.00025" quat="0.5 -0.5 -0.5 0.5" group="2" rgba="1 0.5 0 1"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="base_plate">
+      <geom name="base_plate" size="0.09 0.09 0.01" pos="0 0.002984 0.01" type="box"/>
+    </body>
+    <body name="desk">
+      <geom name="desk_top" size="0.6 0.35 0.015" pos="0 0.15 -0.015" type="box" material="desk_wood"/>
+      <geom name="desk_leg_nx_ny" size="0.025 0.025 0.36" pos="-0.545 -0.145 -0.39" type="box" material="desk_frame"/>
+      <geom name="desk_leg_nx_py" size="0.025 0.025 0.36" pos="-0.545 0.445 -0.39" type="box" material="desk_frame"/>
+      <geom name="desk_leg_px_ny" size="0.025 0.025 0.36" pos="0.545 -0.145 -0.39" type="box" material="desk_frame"/>
+      <geom name="desk_leg_px_py" size="0.025 0.025 0.36" pos="0.545 0.445 -0.39" type="box" material="desk_frame"/>
+      <geom name="desk_apron_front" size="0.545 0.012 0.035" pos="0 0.445 -0.065" type="box" material="desk_frame"/>
+      <geom name="desk_apron_back" size="0.545 0.012 0.035" pos="0 -0.145 -0.065" type="box" material="desk_frame"/>
+      <geom name="desk_apron_left" size="0.012 0.295 0.035" pos="-0.545 0.15 -0.065" type="box" material="desk_frame"/>
+      <geom name="desk_apron_right" size="0.012 0.295 0.035" pos="0.545 0.15 -0.065" type="box" material="desk_frame"/>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="world" body2="r_a_1"/>
+  </contact>
+
+  <actuator>
+    <general name="Revolute_1_mot" joint="Revolute_1" ctrlrange="-10 10"/>
+    <general name="Revolute_2_mot" joint="Revolute_2" ctrlrange="-10 10"/>
+    <general name="Revolute_3_mot" joint="Revolute_3" ctrlrange="-10 10"/>
+    <general name="Revolute_4_mot" joint="Revolute_4" ctrlrange="-10 10"/>
+    <general name="Revolute_5_mot" joint="Revolute_5" ctrlrange="-10 10"/>
+    <general name="Revolute_6_mot" joint="Revolute_6" ctrlrange="-10 10"/>
+  </actuator>
+
+  <sensor>
+    <jointpos joint="Revolute_1" name="Revolute_1_pos"/>
+    <jointpos joint="Revolute_2" name="Revolute_2_pos"/>
+    <jointpos joint="Revolute_3" name="Revolute_3_pos"/>
+    <jointpos joint="Revolute_4" name="Revolute_4_pos"/>
+    <jointpos joint="Revolute_5" name="Revolute_5_pos"/>
+    <jointpos joint="Revolute_6" name="Revolute_6_pos"/>
+    <jointvel joint="Revolute_1" name="Revolute_1_vel"/>
+    <jointvel joint="Revolute_2" name="Revolute_2_vel"/>
+    <jointvel joint="Revolute_3" name="Revolute_3_vel"/>
+    <jointvel joint="Revolute_4" name="Revolute_4_vel"/>
+    <jointvel joint="Revolute_5" name="Revolute_5_vel"/>
+    <jointvel joint="Revolute_6" name="Revolute_6_vel"/>
+    <jointactuatorfrc joint="Revolute_1" name="Revolute_1_frc"/>
+    <jointactuatorfrc joint="Revolute_2" name="Revolute_2_frc"/>
+    <jointactuatorfrc joint="Revolute_3" name="Revolute_3_frc"/>
+    <jointactuatorfrc joint="Revolute_4" name="Revolute_4_frc"/>
+    <jointactuatorfrc joint="Revolute_5" name="Revolute_5_frc"/>
+    <jointactuatorfrc joint="Revolute_6" name="Revolute_6_frc"/>
+  </sensor>
+
+  <keyframe>
+    <key name="ready" qpos="0 0.822469 1.68032 -0.712947 -1.5708 -0.139769"/>
+  </keyframe>
+</mujoco>

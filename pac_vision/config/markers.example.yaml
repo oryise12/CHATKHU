@@ -1,0 +1,19 @@
+# 고정 표지(ArUco) 형식 예시. 복사해서 config/markers.yaml(git 제외)을 만들고 현장에서 잰 값으로 바꾼다.
+#   cp config/markers.example.yaml config/markers.yaml
+# 표지 인쇄: python scripts/check_markers.py --sheet markers_sheet.png  (100 % 크기로 인쇄, 한 변을 자로 확인)
+# 확인:     python scripts/check_markers.py
+# 시뮬레이터(--calib ...cam2base.yaml)는 같은 폴더의 markers.yaml로 시작할 때와 실행 중에 정합을 확인한다.
+#
+# ⚠️ 아래 좌표는 형식 예시다. 표지를 붙인 뒤 각 표지 "중심"의 base_ref 좌표를 줄자로 재서 적는다.
+#    base_ref: m, 원점 = A4 대각선 교점, +X 앞(A4 화살표), +Y 왼쪽, 책상 z = 0. 보정 계산에는 쓰지 않는 독립 점.
+#    표지는 보정 종이 밖, 로봇 팔·손이 가리지 않는 곳에 두 개 이상, 서로 멀리 둔다.
+#    화면에서 한 변이 30 px 이상 보이게 한다 (비스듬히 보면 짧아진다: 1 m 거리면 10~12 cm 권장).
+dictionary: DICT_4X4_50
+size_m: 0.12
+min_visible: 2
+# 허용오차 출발값 (계획 제안값). 현장에서 카메라를 건드리지 않고 여러 번 잰 분포를 보고 바꾼다.
+max_pixel_px: 8.0
+max_desk_mm: 10.0
+markers:
+  0: {base_m: [0.35, 0.25, 0.0]}
+  1: {base_m: [0.35, -0.25, 0.0]}

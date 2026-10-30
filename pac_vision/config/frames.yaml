@@ -1,0 +1,6 @@
+# 좌표계·토픽 이름 (임시안). 팀 통합 때 바뀔 수 있으며, 코드에는 이름을 직접 쓰지 않는다.
+base_frame: base_ref
+node_name: pac_vision_objects
+topics:
+  objects: /pac/objects        # geometry_msgs/PoseArray: 인식된 물체 전체의 윗면 중심
+  target: /pac/target_point    # geometry_msgs/PointStamped: 클릭으로 선택한 물체의 윗면 중심

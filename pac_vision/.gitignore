@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# 현장 값 중 지금 시연 배치의 결과(cam2base, pose, markers, robot_pose, local)는 저장소에 넣는다 (2026-10-28 사용자 결정:
+# 같은 책상·카메라·표지 배치면 다른 컴퓨터에서도 보정 없이 실행). 배치를 바꾸면 다시 보정해서 덮어쓴다.
+# 백업과 확인 결과(장치 번호·USB 경로가 들어감)는 올리지 않는다.
+config/*.bak
+config/markers.check.yaml
+data/sessions/*
+!data/sessions/.gitkeep
+# YOLO 가중치 (실행 시 자동으로 내려받음)
+*.pt
